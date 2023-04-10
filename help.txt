@@ -8,6 +8,13 @@ You'll see that in the code, there are no "window." because the browser is smart
 write "window.". 
 This means that we can tidy our code a little more
 
+
+**/// importing / exporting values \\\**
+
+It seems that getting the canvas elements js file will take priority which means that any code in that file that you don't want to be executed, will be executed because 
+this file will have priority over any other files. In addition, when exporting a value, it will export a reference to the actual value. This means that if the value is
+modified after exporting it, it will still have the modified value
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 //
