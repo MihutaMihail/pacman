@@ -1,0 +1,39 @@
+//
+// General
+//
+
+**/// window.innerWidth / windows.addEventListener \\\**
+
+You'll see that in the code, there are no "window." because the browser is smart enough to understand what we're trying to do so there is no need to
+write "window.". 
+This means that we can tidy our code a little more
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+//
+// Keyboard Input
+//
+
+**/// addEventListener('keydown', ({key})) => ... \\\**
+
+The reason why we're using {key} is because when we press down a key, we can collect all data that comes within the object "event"
+By using "{key}" we can extract the only element that we need, in this case it's "key" inside the object "event"
+
+
+**/// player.velocity.x = 0;  \\\**
+**/// player.velocity.y = -5; \\\**
+
+When you have velocity x & y to a certain value (not 0), it will move diagonally. However, if you were to set the other value (x or y) to 0 beforehand,
+it means that it will only move up, down, left or right. It will not move diagonally anymore
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+//
+// Boundary Draw
+//
+
+**/// map.forEach(row, i)... \\\**
+
+This method will go through every element in an array, we can call it whatever we want (ie row)
+If you want to get the index of the element in the array, all you need to do is to put a comma and write a variable name
+It will automatically put the index value into the second variable
