@@ -33,7 +33,7 @@ class Player {
 
 import { Boundary } from './boundary.js';
 
-const player = new Player({
+export const player = new Player({
     position : {
         x: Boundary.width + Boundary.width / 2,
         y: Boundary.height + Boundary.height / 2
@@ -45,5 +45,3 @@ const player = new Player({
 })
 
 player.draw();
-
-export { player };

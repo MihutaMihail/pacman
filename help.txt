@@ -44,3 +44,25 @@ it means that it will only move up, down, left or right. It will not move diagon
 This method will go through every element in an array, we can call it whatever we want (ie row)
 If you want to get the index of the element in the array, all you need to do is to put a comma and write a variable name
 It will automatically put the index value into the second variable
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+//
+// Player Class
+//
+
+**/// draw() --> beginPath() \\\**
+
+The beginPath() method allows us to start a path so that we can draw our own object (lines, arc, curves) which we need for our player
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+//
+// Animate
+//
+
+**/// circle: {...player, velocity: {x:0, y-3}} \\\**
+
+This code copies the object "player" into the object "circle". However, we now have actual object with all its properties 
+but we can freely modify some properties like "velocity"
+

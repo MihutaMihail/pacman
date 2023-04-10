@@ -2,61 +2,64 @@
 // Keyboard Input
 //
 
-let lastKey = '';
+export let lastKey = '';
 
-export { lastKey };
-
-const keys = {
-    z: {
+export const keys = {
+    ArrowUp: {
         pressed : false
     },
-    q: {
+    ArrowLeft: {
         pressed : false
     },
-    s: {
+    ArrowDown: {
         pressed : false
     },
-    d: {
+    ArrowRight: {
         pressed : false
     }
 }
 
-export { keys };
-
 addEventListener('keydown', ({key}) => {
     switch (key) {
-        case 'z':
-            keys.z.pressed = true;
-            lastKey = 'z';
+        case 'ArrowUp':
+            keys.ArrowUp.pressed = true;
+            lastKey = 'ArrowUp';
             break;
-        case 'q':
-            keys.q.pressed = true;
-            lastKey = 'q';
+        case 'ArrowLeft':
+            keys.ArrowLeft.pressed = true;
+            lastKey = 'ArrowLeft';
             break;
-        case 's':
-            keys.s.pressed = true;
-            lastKey = 's';
+        case 'ArrowDown':
+            keys.ArrowDown.pressed = true;
+            lastKey = 'ArrowDown';
             break;
-        case 'd':
-            keys.d.pressed = true;
-            lastKey = 'd';
+        case 'ArrowRight':
+            keys.ArrowRight.pressed = true;
+            lastKey = 'ArrowRight';
             break;
     }
-})
+});
 
 addEventListener('keyup', ({key}) => {
     switch (key) {
-        case 'z':
-            keys.z.pressed = false;
+        case 'ArrowUp':
+            keys.ArrowUp.pressed = false;
             break;
-        case 'q':
-            keys.q.pressed = false;
+        case 'ArrowLeft':
+            keys.ArrowLeft.pressed = false;
             break;
-        case 's':
-            keys.s.pressed = false;
+        case 'ArrowDown':
+            keys.ArrowDown.pressed = false;
             break;
-        case 'd':
-            keys.d.pressed = false;
+        case 'ArrowRight':
+            keys.ArrowRight.pressed = false;
             break;
     }
-})
+});
+
+// Stops arrow keys from moving the scrollbars
+addEventListener('keydown', (event) => {
+    if (event.key.startsWith('Arrow')) {
+      event.preventDefault();
+    }
+});

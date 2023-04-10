@@ -4,7 +4,7 @@
 
 import { c } from './base.js';
 
-class Boundary {
+export class Boundary {
     static width = 40;
     static height = 40;
     constructor({position}) {
@@ -19,13 +19,11 @@ class Boundary {
     };
 }
 
-export { Boundary };
-
 //
 // Boundary Draw
 //
 
-const boundaries = [];
+export const boundaries = [];
 
 import { map } from './map.js';
 
@@ -43,5 +41,3 @@ map.forEach((row, i) => {
         }
     })
 });
-
-export { boundaries };
