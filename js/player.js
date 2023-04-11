@@ -2,7 +2,7 @@
 // Player Class
 //
 
-import { c } from './base.js';
+import { c } from './canvas.js';
 
 class Player {
     constructor({position, velocity}) {
