@@ -35,9 +35,11 @@ function createImage(src) {
 
 import { map } from './map.js';
 import { Pellet } from './pellet.js';
+import { PowerUp } from './powerUp.js';
 
 export const boundaries = [];
 export const pellets = [];
+export const powerUps = [];
 
 map.forEach((row, i) => {
     row.forEach((symbol, j) => {
@@ -221,6 +223,16 @@ map.forEach((row, i) => {
             case '.':
                 pellets.push(
                     new Pellet({
+                        position: {
+                            x: j * Boundary.width + Boundary.width / 2,
+                            y: i * Boundary.height + Boundary.height / 2
+                        },
+                    })
+                )
+                break;
+            case 'p':
+                powerUps.push(
+                    new PowerUp({
                         position: {
                             x: j * Boundary.width + Boundary.width / 2,
                             y: i * Boundary.height + Boundary.height / 2

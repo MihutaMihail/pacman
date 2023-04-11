@@ -2,11 +2,11 @@
 // Animate
 //
 
-import { boundaries, pellets }              from '../boundary.js';
-import { keys, lastKey }                    from '../keyboardInput.js';
-import { player }                           from '../player.js';
-import { ghosts }                           from '../ghost.js';
-import { canvas, c, scoreEl }               from '../html.js';
+import { boundaries, pellets, powerUps }                      from '../boundary.js';
+import { keys, lastKey }                            from '../keyboardInput.js';
+import { player }                                   from '../player.js';
+import { ghosts }                                   from '../ghost.js';
+import { canvas, c, scoreEl }                       from '../html.js';
 import { arrowUpCollisionPlayer, arrowRightCollisionPlayer, arrowDownCollisionPlayer, arrowLeftCollisionPlayer, circleCollidesWithRectangle } from './collisionTools.js';
 
 let score = 0;
@@ -28,8 +28,53 @@ function animate() {
         arrowRightCollisionPlayer();
     }
 
-    // draw pellets + check collision
-    for (let i = pellets.length - 1; 0 < i; i--) {
+
+    // collisions between ghost and player
+    for (let i = ghosts.length - 1; 0 <= i; i--) {
+        const ghost = ghosts[i];
+
+        // ghost touches player
+        if (Math.hypot(
+            ghost.position.x - player.position.x, 
+            ghost.position.y - player.position.y
+            ) < 
+            ghost.radius + player.radius
+            ) {
+                if (ghost.scared) {
+                    ghosts.splice(i, 1);
+                } else {
+                    cancelAnimationFrame(animationId);
+                }
+            }
+    }
+
+    // draw power ups + check collisions
+    for (let i = powerUps.length - 1; 0 <= i; i--) {
+        const powerUp = powerUps[i];
+        powerUp.draw();
+
+        if (Math.hypot(
+            powerUp.position.x - player.position.x, 
+            powerUp.position.y - player.position.y
+            ) < 
+            powerUp.radius + player.radius
+            ) 
+        {
+            powerUps.splice(i, 1);
+
+            // make ghosts scared
+            ghosts.forEach(ghost => {
+                ghost.scared = true;
+
+                setTimeout(() => {
+                    ghost.scared = false;
+                }, 5000)
+            })
+        } 
+    }
+
+    // draw pellets + check collisions
+    for (let i = pellets.length - 1; 0 <= i; i--) {
         const pellet = pellets[i];
         pellet.draw();
 
@@ -46,7 +91,7 @@ function animate() {
         } 
     }
 
-    // draw boudaries + check collision
+    // draw boundaries + check collisions
     boundaries.forEach((boundary) => {
         boundary.draw(); 
         
@@ -63,18 +108,9 @@ function animate() {
 
     player.update();
 
+    // update ghosts + check collisions
     ghosts.forEach(ghost => {
         ghost.update();
-
-        // you lose condition
-        if (Math.hypot(
-            ghost.position.x - player.position.x, 
-            ghost.position.y - player.position.y
-            ) < 
-            ghost.radius + player.radius
-            ) {
-                cancelAnimationFrame(animationId);
-            }
 
         const collisions = [];
         boundaries.forEach(boundary => {
