@@ -48,6 +48,12 @@ function animate() {
             }
     }
 
+    // win condition
+    if (pellets.length === 0) {
+        cancelAnimationFrame(animationId);
+        // next level / faster ghosts / etc
+    }
+
     // draw power ups + check collisions
     for (let i = powerUps.length - 1; 0 <= i; i--) {
         const powerUp = powerUps[i];
@@ -218,6 +224,10 @@ function animate() {
         }
     }) 
 
+    if (player.velocity.x > 0) player.rotation = 0
+    else if (player.velocity.x < 0) player.rotation = Math.PI
+    else if (player.velocity.y > 0) player.rotation = Math.PI / 2
+    else if (player.velocity.y < 0) player.rotation = Math.PI * 1.5
 } 
 
 animate();
