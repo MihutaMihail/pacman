@@ -33,9 +33,11 @@ function createImage(src) {
 // Boundary Draw
 //
 
-export const boundaries = [];
-
 import { map } from './map.js';
+import { Pellet } from './pellet.js';
+
+export const boundaries = [];
+export const pellets = [];
 
 map.forEach((row, i) => {
     row.forEach((symbol, j) => {
@@ -50,7 +52,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/pipeHorizontal.png')
                     })
                 )
-            break;
+                break;
             case '|':
                 boundaries.push(
                     new Boundary({
@@ -72,7 +74,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/pipeCorner1.png')
                     })
                 )
-            break;
+                break;
             case '2':
                 boundaries.push(
                     new Boundary({
@@ -83,7 +85,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/pipeCorner2.png')
                     })
                 )
-            break;
+                break;
             case '3':
                 boundaries.push(
                     new Boundary({
@@ -94,7 +96,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/pipeCorner3.png')
                     })
                 )
-            break;
+                break;
             case '4':
                 boundaries.push(
                     new Boundary({
@@ -105,7 +107,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/pipeCorner4.png')
                     })
                 )
-            break;
+                break;
             case 'b':
                 boundaries.push(
                     new Boundary({
@@ -116,7 +118,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/block.png')
                     })
                 )
-            break;
+                break;
             case '[':
                 boundaries.push(
                     new Boundary({
@@ -127,7 +129,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/capLeft.png')
                     })
                 )
-            break;
+                break;
             case ']':
                 boundaries.push(
                     new Boundary({
@@ -138,7 +140,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/capRight.png')
                     })
                 )
-            break;
+                break;
             case '_':
                 boundaries.push(
                     new Boundary({
@@ -149,7 +151,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/capBottom.png')
                     })
                 )
-            break;
+                break;
             case '^':
                 boundaries.push(
                     new Boundary({
@@ -160,7 +162,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/capTop.png')
                     })
                 )
-            break;
+                break;
             case '+':
                 boundaries.push(
                     new Boundary({
@@ -171,7 +173,7 @@ map.forEach((row, i) => {
                         image: createImage('./assets/pipeCross.png')
                     })
                 )
-            break;
+                break;
             case '5':
                 boundaries.push(
                     new Boundary({
@@ -180,9 +182,9 @@ map.forEach((row, i) => {
                             y: i * Boundary.height
                         },
                         image: createImage('./assets/pipeConnectorTop.png')
-                })
-            )
-            break;
+                    })
+                )
+                break;
             case '6':
                 boundaries.push(
                     new Boundary({
@@ -192,8 +194,8 @@ map.forEach((row, i) => {
                         },
                         image: createImage('./assets/pipeConnectorRight.png')
                     })
-            )
-            break;
+                )
+                break;
             case '7':
                 boundaries.push(
                     new Boundary({
@@ -203,8 +205,8 @@ map.forEach((row, i) => {
                         },
                         image: createImage('./assets/pipeConnectorBottom.png')
                     })
-            )
-            break;
+                )
+                break;
             case '8':
                 boundaries.push(
                     new Boundary({
@@ -214,8 +216,18 @@ map.forEach((row, i) => {
                         },
                         image: createImage('./assets/pipeConnectorLeft.png')
                     })
-            )
-            break;
+                )
+                break;
+            case '.':
+                pellets.push(
+                    new Pellet({
+                        position: {
+                            x: j * Boundary.width + Boundary.width / 2,
+                            y: i * Boundary.height + Boundary.height / 2
+                        },
+                    })
+                )
+                break;
       }
     })
   })

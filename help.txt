@@ -66,3 +66,15 @@ The beginPath() method allows us to start a path so that we can draw our own obj
 This code copies the object "player" into the object "circle". However, we now have actual object with all its properties 
 but we can freely modify some properties like "velocity"
 
+
+**/// if (Math.hypot(pellet.position.x - player.position.x, pellet.position.y - player.position.y) < pellet.radius . player.radius) \\\**
+
+This code is useful for calculating distances between two points in 2d or 3d. In this example, we want to calculate the distance between our player and the pellet.
+However this code will only calculate the distance between the center of these two points. The 2nd part "< pellet.radius..." will calculate the distance between these
+two points using their radius to know if they're touching.
+
+**/// for (let i = pellets.length - 1; 0 < i; i--)  \\\**
+
+Everytime we splice the array of pellets to remove the pellet that ther user has touched, the pellets inside the array will shift position and will flash for a split second.
+To remove that, we'll need to run through the array of pellets backwards
+
