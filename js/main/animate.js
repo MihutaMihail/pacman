@@ -5,25 +5,27 @@
 import { boundaries, pellets }              from '../boundary.js';
 import { keys, lastKey }                    from '../keyboardInput.js';
 import { player }                           from '../player.js';
+import { ghosts }                           from '../ghost.js';
 import { canvas, c, scoreEl }               from '../html.js';
-import { arrowUpCollision, arrowRightCollision, arrowDownCollision, arrowLeftCollision, circleCollidesWithRectangle } from './collisionTools.js';
+import { arrowUpCollisionPlayer, arrowRightCollisionPlayer, arrowDownCollisionPlayer, arrowLeftCollisionPlayer, circleCollidesWithRectangle } from './collisionTools.js';
 
 let score = 0;
+let animationId;
 
 function animate() {
     // create loop
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
 
     c.clearRect(0, 0, canvas.width, canvas.height);
 
     if (keys.ArrowUp.pressed && lastKey === 'ArrowUp') {
-        arrowUpCollision();
+        arrowUpCollisionPlayer();
     } else if (keys.ArrowLeft.pressed && lastKey === 'ArrowLeft') {
-        arrowLeftCollision();
+        arrowLeftCollisionPlayer();
     } else if (keys.ArrowDown.pressed && lastKey === 'ArrowDown') {
-        arrowDownCollision();
+        arrowDownCollisionPlayer();
     } else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') {
-        arrowRightCollision();
+        arrowRightCollisionPlayer();
     }
 
     // draw pellets + check collision
@@ -60,6 +62,126 @@ function animate() {
     })
 
     player.update();
+
+    ghosts.forEach(ghost => {
+        ghost.update();
+
+        // you lose condition
+        if (Math.hypot(
+            ghost.position.x - player.position.x, 
+            ghost.position.y - player.position.y
+            ) < 
+            ghost.radius + player.radius
+            ) {
+                cancelAnimationFrame(animationId);
+            }
+
+        const collisions = [];
+        boundaries.forEach(boundary => {
+            if (
+                !collisions.includes('right') &&
+                circleCollidesWithRectangle({
+                    circle: {
+                        ...ghost, 
+                        velocity: {
+                            x: ghost.speed,
+                            y: 0
+                        }
+                    },
+                    rectangle: boundary
+                })
+            ){
+                collisions.push('right');
+            }
+
+            if (
+                !collisions.includes('left') &&
+                circleCollidesWithRectangle({
+                    circle: {
+                        ...ghost, 
+                        velocity: {
+                            x: -ghost.speed,
+                            y: 0
+                        }
+                    },
+                    rectangle: boundary
+                })
+            ){
+                collisions.push('left');
+            }
+
+            if (
+                !collisions.includes('up') &&
+                circleCollidesWithRectangle({
+                    circle: {
+                        ...ghost, 
+                        velocity: {
+                            x: 0,
+                            y: -ghost.speed
+                        }
+                    },
+                    rectangle: boundary
+                })
+            ){
+                collisions.push('up');
+            }
+
+            if (
+                !collisions.includes('down') &&
+                circleCollidesWithRectangle({
+                    circle: {
+                        ...ghost, 
+                        velocity: {
+                            x: 0,
+                            y: ghost.speed
+                        }
+                    },
+                    rectangle: boundary
+                })
+            ){
+                collisions.push('down');
+            }
+        })
+
+        if (collisions.length > ghost.prevCollisions.length)
+            ghost.prevCollisions = collisions; 
+
+        if (JSON.stringify(collisions) !== JSON.stringify(ghost.prevCollisions)) {
+            if (ghost.velocity.x > 0) ghost.prevCollisions.push('right')
+            else if (ghost.velocity.x < 0) ghost.prevCollisions.push('left')
+            else if (ghost.velocity.y < 0) ghost.prevCollisions.push('up')
+            else if (ghost.velocity.y > 0) ghost.prevCollisions.push('down')
+
+            const pathways = ghost.prevCollisions.filter((collision 
+            ) => {
+                return !collisions.includes(collision);
+            })
+
+            const direction = pathways[Math.floor(Math.random() * pathways.length)]
+
+            switch (direction) {
+                case 'down':
+                    ghost.velocity.y = ghost.speed;
+                    ghost.velocity.x = 0;
+                    break;
+                case 'up' :
+                    ghost.velocity.y = -ghost.speed;
+                    ghost.velocity.x = 0;
+                    break;
+                case 'right' :
+                    ghost.velocity.y = 0;
+                    ghost.velocity.x = ghost.speed;
+                    break;
+                case 'left' :
+                    ghost.velocity.y = 0;
+                    ghost.velocity.x = -ghost.speed;
+                    break;
+            }
+
+            ghost.prevCollisions = [];
+        }
+    }) 
+
 } 
 
 animate();

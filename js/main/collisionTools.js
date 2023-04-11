@@ -2,12 +2,15 @@
 // Player Collision w/ Boundary
 //
 
+import { Boundary }       from '../boundary.js';
+
 export function circleCollidesWithRectangle({ circle, rectangle }) {
+    const padding = Boundary.width / 2 - circle.radius - 1;
     return (
-        circle.position.y - circle.radius + circle.velocity.y <= rectangle.position.y + rectangle.height &&
-        circle.position.x + circle.radius + circle.velocity.x >= rectangle.position.x &&
-        circle.position.y + circle.radius + circle.velocity.y >= rectangle.position.y &&
-        circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width
+        circle.position.y - circle.radius + circle.velocity.y <= rectangle.position.y + rectangle.height + padding &&
+        circle.position.x + circle.radius + circle.velocity.x >= rectangle.position.x - padding &&
+        circle.position.y + circle.radius + circle.velocity.y >= rectangle.position.y - padding &&
+        circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width + padding
         );
 }
 
@@ -19,7 +22,7 @@ import { boundaries }       from '../boundary.js';
 import { player }           from '../player.js';
 
 // Arrow Up
-export function arrowUpCollision() {
+export function arrowUpCollisionPlayer() {
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -43,7 +46,7 @@ export function arrowUpCollision() {
 }
 
 // Arrow Right
-export function arrowRightCollision() {
+export function arrowRightCollisionPlayer() {
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -67,7 +70,7 @@ export function arrowRightCollision() {
 }
 
 // Arrow Down
-export function arrowDownCollision() {
+export function arrowDownCollisionPlayer() {
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -91,7 +94,7 @@ export function arrowDownCollision() {
 }
 
 // Arrow Left
-export function arrowLeftCollision() {
+export function arrowLeftCollisionPlayer() {
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (

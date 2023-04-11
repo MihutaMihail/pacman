@@ -73,8 +73,12 @@ This code is useful for calculating distances between two points in 2d or 3d. In
 However this code will only calculate the distance between the center of these two points. The 2nd part "< pellet.radius..." will calculate the distance between these
 two points using their radius to know if they're touching.
 
-**/// for (let i = pellets.length - 1; 0 < i; i--)  \\\**
+**/// for (let i = pellets.length - 1; 0 < i; i--) \\\**
 
 Everytime we splice the array of pellets to remove the pellet that ther user has touched, the pellets inside the array will shift position and will flash for a split second.
 To remove that, we'll need to run through the array of pellets backwards
+
+**/// if (JSON.stringify(collisions) !== JSON.stringify(ghost.prevCollisions)) \\\**
+
+To properly test if two arrays are the same, we can use "JSON.stringify()" to tranform the arrays intro strings so that they can be compared
 
