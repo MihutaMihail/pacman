@@ -2,7 +2,7 @@
 // Boundary Class
 //
 
-import { c } from './canvas.js';
+import { c } from './html.js';
 
 export class Boundary {
     static width = 40;

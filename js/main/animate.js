@@ -2,11 +2,13 @@
 // Animate
 //
 
-import { boundaries, pellets }      from '../boundary.js';
-import { keys, lastKey }            from '../keyboardInput.js';
-import { player }                   from '../player.js';
-import { canvas, c }                from '../canvas.js';
+import { boundaries, pellets }              from '../boundary.js';
+import { keys, lastKey }                    from '../keyboardInput.js';
+import { player }                           from '../player.js';
+import { canvas, c, scoreEl }               from '../html.js';
 import { arrowUpCollision, arrowRightCollision, arrowDownCollision, arrowLeftCollision, circleCollidesWithRectangle } from './collisionTools.js';
+
+let score = 0;
 
 function animate() {
     // create loop
@@ -24,6 +26,7 @@ function animate() {
         arrowRightCollision();
     }
 
+    // draw pellets + check collision
     for (let i = pellets.length - 1; 0 < i; i--) {
         const pellet = pellets[i];
         pellet.draw();
@@ -36,9 +39,12 @@ function animate() {
             ) 
         {
             pellets.splice(i, 1);
+            score += 10;
+            scoreEl.innerHTML = score;
         } 
     }
 
+    // draw boudaries + check collision
     boundaries.forEach((boundary) => {
         boundary.draw(); 
         

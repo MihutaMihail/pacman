@@ -2,7 +2,7 @@
 // Pellet Class
 //
 
-import { c } from './canvas.js';
+import { c } from './html.js';
 
 export class Pellet {
     constructor({position}) {
