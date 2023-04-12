@@ -60,6 +60,9 @@ The beginPath() method allows us to start a path so that we can draw our own obj
 Using the rotate method that we've used, we need to first wrap our object that we want to rotate if now it will rotate the whole canvas
 c.rotate() && c.translate() are global functions meaning that they will affect the whole canvas
 
+**/// this.radians \\\**
+
+A full circle is Math.PI * 2, so adding / substraction 0.75 will take away a portion a the circle
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 

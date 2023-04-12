@@ -18,18 +18,18 @@ function animate() {
 
     c.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (keys.ArrowUp.pressed && lastKey === 'ArrowUp') {
-        arrowUpCollisionPlayer();
-    } else if (keys.ArrowLeft.pressed && lastKey === 'ArrowLeft') {
-        arrowLeftCollisionPlayer();
-    } else if (keys.ArrowDown.pressed && lastKey === 'ArrowDown') {
-        arrowDownCollisionPlayer();
-    } else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') {
-        arrowRightCollisionPlayer();
+    if (keys.ArrowUp.pressed && lastKey === 'ArrowUp') arrowUpCollisionPlayer();
+    else if (keys.ArrowLeft.pressed && lastKey === 'ArrowLeft')  arrowLeftCollisionPlayer();
+    else if (keys.ArrowDown.pressed && lastKey === 'ArrowDown') arrowDownCollisionPlayer();
+    else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') arrowRightCollisionPlayer();
+
+    // win condition
+    if (pellets.length === 0) {
+        cancelAnimationFrame(animationId);
+        // next level / faster ghosts / etc
     }
 
-
-    // collisions between ghost and player
+    // collision between ghost and player
     for (let i = ghosts.length - 1; 0 <= i; i--) {
         const ghost = ghosts[i];
 
@@ -48,13 +48,7 @@ function animate() {
             }
     }
 
-    // win condition
-    if (pellets.length === 0) {
-        cancelAnimationFrame(animationId);
-        // next level / faster ghosts / etc
-    }
-
-    // draw power ups + check collisions
+    // draw power ups + check collision
     for (let i = powerUps.length - 1; 0 <= i; i--) {
         const powerUp = powerUps[i];
         powerUp.draw();
@@ -79,7 +73,7 @@ function animate() {
         } 
     }
 
-    // draw pellets + check collisions
+    // draw pellets + check collision
     for (let i = pellets.length - 1; 0 <= i; i--) {
         const pellet = pellets[i];
         pellet.draw();
@@ -97,7 +91,7 @@ function animate() {
         } 
     }
 
-    // draw boundaries + check collisions
+    // draw boundaries + check collision
     boundaries.forEach((boundary) => {
         boundary.draw(); 
         
@@ -114,7 +108,7 @@ function animate() {
 
     player.update();
 
-    // update ghosts + check collisions
+    // update ghosts + check collision
     ghosts.forEach(ghost => {
         ghost.update();
 
@@ -224,6 +218,7 @@ function animate() {
         }
     }) 
 
+    // rotate player in the direction that it's facing
     if (player.velocity.x > 0) player.rotation = 0
     else if (player.velocity.x < 0) player.rotation = Math.PI
     else if (player.velocity.y > 0) player.rotation = Math.PI / 2

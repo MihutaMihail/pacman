@@ -1,5 +1,5 @@
 //
-// Player Collision w/ Boundary
+// Circle (player,ghost) Collision w/ Rectangle (boundary)
 //
 
 import { Boundary }       from '../boundary.js';
