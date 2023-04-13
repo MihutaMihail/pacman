@@ -12,9 +12,13 @@ import { arrowUpCollisionPlayer, arrowRightCollisionPlayer, arrowDownCollisionPl
 let score = 0;
 let animationId;
 
+const fps = 60;
+
 function animate() {
-    // create loop
-    animationId = requestAnimationFrame(animate);
+    // create loop + set fps
+    setTimeout(() => {
+        animationId = requestAnimationFrame(animate);
+      }, 1000 / fps);
 
     c.clearRect(0, 0, canvas.width, canvas.height);
 
