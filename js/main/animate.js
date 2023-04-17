@@ -14,7 +14,6 @@ let score = 0;
 let animationId;
 
 function animate() {
-    // create loop
     animationId = requestAnimationFrame(animate);
 
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -26,7 +25,7 @@ function animate() {
 
     // win condition
     if (pellets.length === 0) {
-        cancelAnimationFrame(animationId);''
+        cancelAnimationFrame(animationId);
         // next level / faster ghosts / etc
     }
 

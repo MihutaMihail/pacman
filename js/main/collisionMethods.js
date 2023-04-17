@@ -7,11 +7,15 @@ import { Boundary }       from '../boundary.js';
 export function circleCollidesWithRectangle({ circle, rectangle }) {
     const padding = Boundary.width / 2 - circle.radius - 1;
     return (
+        // Top of circle                                        // Bottom of rectangle
         circle.position.y - circle.radius + circle.velocity.y <= rectangle.position.y + rectangle.height + padding &&
+        // Right of circle                                      // Left of rectangle
         circle.position.x + circle.radius + circle.velocity.x >= rectangle.position.x - padding &&
+        // Bottom of circle                                     // Top of rectangle
         circle.position.y + circle.radius + circle.velocity.y >= rectangle.position.y - padding &&
+        // Left of circle                                       // Right of rectangle
         circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width + padding
-        );
+    );
 }
 
 //
@@ -31,7 +35,7 @@ export function arrowUpCollisionPlayer() {
                     ...player, 
                     velocity: {
                         x: 0,
-                        y: -5
+                        y: -4
                     }
                 },
                 rectangle: boundary
@@ -40,7 +44,7 @@ export function arrowUpCollisionPlayer() {
             player.velocity.y = 0;
             break;
         } else {
-            player.velocity.y = -5;
+            player.velocity.y = -4;
         }
     }
 }
@@ -54,7 +58,7 @@ export function arrowRightCollisionPlayer() {
                 circle: {
                     ...player, 
                     velocity: {
-                        x: 5,
+                        x: 4,
                         y: 0
                     }
                 },
@@ -64,7 +68,7 @@ export function arrowRightCollisionPlayer() {
             player.velocity.x = 0;
             break;
         } else {
-            player.velocity.x = 5;
+            player.velocity.x = 4;
         }
     }
 }
@@ -79,7 +83,7 @@ export function arrowDownCollisionPlayer() {
                     ...player, 
                     velocity: {
                         x: 0,
-                        y: 5
+                        y: 4
                     }
                 },
                 rectangle: boundary
@@ -88,7 +92,7 @@ export function arrowDownCollisionPlayer() {
             player.velocity.y = 0;
             break;
         } else {
-            player.velocity.y = 5;
+            player.velocity.y = 4;
         }
     }
 }
@@ -102,7 +106,7 @@ export function arrowLeftCollisionPlayer() {
                 circle: {
                     ...player, 
                     velocity: {
-                        x: -5,
+                        x: -4,
                         y: 0
                     }
                 },
@@ -112,7 +116,7 @@ export function arrowLeftCollisionPlayer() {
             player.velocity.x = 0;
             break;
         } else {
-            player.velocity.x = -5;
+            player.velocity.x = -4;
         }
     }
 }

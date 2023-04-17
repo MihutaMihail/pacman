@@ -33,11 +33,10 @@ class Player {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         if (this.radians < 0 || this.radians > 0.75 ) this.openRate = -this.openRate 
-
+        
         this.radians += this.openRate;
     }
 }
-
 
 //
 // Player Variable

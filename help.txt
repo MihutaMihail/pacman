@@ -45,6 +45,23 @@
     If you want to get the index of the element in the array, all you need to do is to put a comma and write a variable name
     It will automatically put the index value into the second variable
 
+ **///  map.forEach((row, i) => {                                               \\\**    
+            row.forEach((symbol, j) => {
+                powerUps.push(
+                        new PowerUp({
+                            position: {
+                                x: j * Boundary.width + Boundary.width / 2,
+                                y: i * Boundary.height + Boundary.height / 2
+                            },
+                        })
+                    )
+            })
+        })
+
+    The 2 loops are used to go through every single element in the 'map' array. We have a loop for the row and a loop for the values inside
+    that said row. In this case, we create a power up in which we push this power up into our array of power ups. Its position is set by
+    using 'i' and 'j' (both index) to get the column and row of the power up.
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 //
@@ -61,9 +78,26 @@
     Using the rotate method that we've used, we need to first wrap our object that we want to rotate if now it will rotate the whole canvas
     c.rotate() && c.translate() are global functions meaning that they will affect the whole canvas
 
+**///  c.translate(this.position.x, this.position.y);    \\\**
+       c.rotate(this.rotation);
+       c.translate(-this.position.x, -this.position.y); 
+
+    This is used to rotate our player. We first used our player position (x,y) to translate (move) the canvas origin point (0,0) to a new
+    location. Next, we rotate the canvas by the number a certain number of degrees. Finally, we set the canvas origina point back to its
+    original position
+
 **/// this.radians \\\**
 
-    A full circle is Math.PI * 2, so adding / substraction 0.75 will take away a portion a the circle
+    A full circle is Math.PI * 2, so substraction / adding 0.75 will take away / add a portion the circle
+
+**/// if (this.radians < 0 || this.radians > 0.75 ) this.openRate = -this.openRate \\\**
+        
+      this.radians += this.openRate; 
+
+    (They are 2 different lines of code)
+    This is used to create the pacman chomp animation. By adding our 'openRate' variable to our 'radians'. It will immediately set the value
+    of 'openRate' to negative and start removing part of the circle. Once this reached 0, it will set the value back to positive which will
+    fill the circle again.
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -73,9 +107,8 @@
 
 **/// circle: {...player, velocity: {x:0, y-3}} \\\**
 
-    This code copies the object "player" into the object "circle". However, we now have actual object with all its properties 
-    but we can freely modify some properties like "velocity"
-
+    This code copies the object "player" into the object "circle". However, we can modify the object properties and set their values since
+    this is just a copy of the object
 
 **/// if (Math.hypot(pellet.position.x - player.position.x, pellet.position.y - player.position.y) < pellet.radius . player.radius) \\\**
 
@@ -110,3 +143,18 @@
     collisions = [up]               // colliding with 'up' boundary 
     prevCollisions = [up, down]     // by comparing the two arrays, we can now tell that we are not longer colliding with the down boundary
                                         (this is done later in the code)
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+//
+// Collision Methods
+//
+
+**/// circle.position.y - circle.radius + circle.velocity.y <= rectangle.position.y + rectangle.height + padding \\\**
+
+    'circle.position.y - circle.radius' gives the top of the circle. Adding the velocity (that we set as a parameter earlier), we can check
+    if it will colide with a boundary.
+
+    'rectangle.position.y + rectangle.height' gives the bottom of a rectangle. This way we check if the player's top collides with the bottom
+    of the rectangle. If we were to change the speed of the ghost / player, this function will no longer work properly. That's why we
+    add a 'padding' to the equation. This padding will take the top / bottom / left / right of a circle and minus 1 (ie because we decreased
+    the speed of the ghost by 1)
