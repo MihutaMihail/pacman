@@ -1,4 +1,4 @@
-import { animate, restartGameCode }              from './main/animate.js'; 
+import { animate, restartGameCode, playerDie } from './main/animate.js';
 
 export let paused = false;
 
@@ -6,7 +6,7 @@ export let paused = false;
 // Show Pause Menu
 // 
 
-document.addEventListener('keydown', function({key}) {
+document.addEventListener('keydown', function ({ key }) {
     if (key == 'Escape') {
         showPauseMenu();
         paused = true;
@@ -21,7 +21,7 @@ function showPauseMenu() {
 // Resume Game
 // 
 
-document.getElementById('resume-button').addEventListener('click', function() {
+document.getElementById('resume-button').addEventListener('click', function () {
     resumeGame();
 });
 
@@ -30,7 +30,9 @@ function resumeGame() {
 
     paused = false;
 
-    animate();
+    if (!playerDie) {
+        animate();
+    }
 }
 
 function hidePauseMenu() {
@@ -41,7 +43,7 @@ function hidePauseMenu() {
 // Restart Game
 // 
 
-document.querySelector('#restart-button').addEventListener('click', function() {
+document.querySelector('#restart-button').addEventListener('click', function () {
     restartGameButton();
 });
 
@@ -56,10 +58,10 @@ function restartGameButton() {
 // Return to Main Menu
 // 
 
-document.querySelector('#main-menu-button').addEventListener('click', function() {
+document.querySelector('#main-menu-button').addEventListener('click', function () {
     returnMainMenu();
 });
 
 function returnMainMenu() {
-    window.open('index.html','_self');
+    window.open('index.html', '_self');
 }  

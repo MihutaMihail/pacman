@@ -3,7 +3,7 @@
 //
 
 import { paused }                                               from '../pauseMenu.js';
-import { boundaries, pellets, powerUps }                        from '../boundary.js';
+import { boundaries, pellets, powerUps, createMap }                        from '../boundary.js';
 import { keys, lastKey }                                        from '../keyboardInput.js';
 import { player }                                               from '../player.js';
 import { ghosts }                                               from '../ghost.js';
@@ -12,6 +12,7 @@ import { arrowUpCollisionPlayer, arrowRightCollisionPlayer,
          arrowDownCollisionPlayer, arrowLeftCollisionPlayer, circleCollidesWithRectangle } from './collisionMethods.js';
 
 export let score = 0;
+export let playerDie = false;
 let animationId;
 let collisions = [];
 
@@ -48,6 +49,7 @@ export function animate() {
                     } else {
                         // player loses
                         cancelAnimationFrame(animationId);
+                        playerDie = true;
                     }
                 }
         }
@@ -240,8 +242,6 @@ export function animate() {
 animate();
 
 export function restartGameCode(){
-    c.clearRect(0, 0, canvas.width, canvas.height);
-
     // reset score
     score = 0;
     scoreEl.innerHTML = score;
@@ -262,4 +262,9 @@ export function restartGameCode(){
         ghost.update(true);
         ghost.velocity.x = ghost.speed;
     })
+
+    // reset map
+    createMap();
+
+    animate();
 }
