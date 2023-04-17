@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/game.css">
 
     <script type="module" src="js/boundary.js"></script>
     <script type="module" src="js/map.js"></script>
@@ -10,11 +10,18 @@
     <script type="module" src="js/html.js"></script>
     <script type="module" src="js/main/collisionMethods.js"></script>
     <script type="module" src="js/main/animate.js"></script>
+    <script type="module" src="js/pauseMenu.js"></script>
 </head>
 <body>
-    <p style="color: white; font-family: sans-serif; font-size: 16px; margin-bottom: 5px">
-        <span>Score: </span><span id="score">0</span>
-    </p>
-    <canvas></canvas>
+    <p id="score">0</p>
+
+    <canvas id="canvasGame"></canvas>
+
+    <div id="pause-menu" style="display:none">
+        <h2>Pause Menu</h2>
+        <button class="button" id="resume-button">Resume</button>
+        <button class="button" id="restart-button">Restart</button>
+        <button class="button" id="main-menu-button">Main Menu</button>
+    </div>
 </body>
 </html>

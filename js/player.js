@@ -7,6 +7,7 @@ import { c } from './html.js';
 class Player {
     constructor({position, velocity}) {
         this.position = position;
+        this.startPosition = Object.assign({}, position);
         this.velocity = velocity;
         this.radius = 15;
         this.radians = 0.75;
@@ -28,7 +29,12 @@ class Player {
         c.restore();
     };
 
-    update() {
+    update(reset) {
+        if (reset) {
+            this.position.x = this.startPosition.x;
+            this.position.y = this.startPosition.y;
+        }
+
         this.draw();
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;

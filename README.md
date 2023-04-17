@@ -8,7 +8,6 @@ using visual studio code
 → Repertory Gitea
 https://ytrack.learn.ynov.com/git/mmihail/Projet-JS-Paris
 
-
 /*** SOURCES USED ***\
 
 → A pacman tutorial + assets for the map

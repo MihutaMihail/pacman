@@ -5,18 +5,25 @@
 import { Boundary }       from '../boundary.js';
 
 export function circleCollidesWithRectangle({ circle, rectangle }) {
-    const padding = Boundary.width / 2 - circle.radius - 1;
+    const collisionMargin = (Boundary.width / 2) - circle.radius - 1;
+  
+    const circleTop = circle.position.y - circle.radius + circle.velocity.y;
+    const circleRight = circle.position.x + circle.radius + circle.velocity.x;
+    const circleBottom = circle.position.y + circle.radius + circle.velocity.y;
+    const circleLeft = circle.position.x - circle.radius + circle.velocity.x;
+
+    const rectTop = rectangle.position.y - collisionMargin;
+    const rectRight = rectangle.position.x + rectangle.width + collisionMargin;
+    const rectBottom = rectangle.position.y + rectangle.height + collisionMargin;
+    const rectLeft = rectangle.position.x - collisionMargin;
+
     return (
-        // Top of circle                                        // Bottom of rectangle
-        circle.position.y - circle.radius + circle.velocity.y <= rectangle.position.y + rectangle.height + padding &&
-        // Right of circle                                      // Left of rectangle
-        circle.position.x + circle.radius + circle.velocity.x >= rectangle.position.x - padding &&
-        // Bottom of circle                                     // Top of rectangle
-        circle.position.y + circle.radius + circle.velocity.y >= rectangle.position.y - padding &&
-        // Left of circle                                       // Right of rectangle
-        circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width + padding
+      circleTop <= rectBottom &&
+      circleRight >= rectLeft &&
+      circleBottom >= rectTop &&
+      circleLeft <= rectRight
     );
-}
+  }
 
 //
 // Arrow Keys Collisions

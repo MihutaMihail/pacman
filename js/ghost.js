@@ -8,6 +8,7 @@ class Ghost {
     static speed = 1;
     constructor({position, velocity, color}) {
         this.position = position;
+        this.startPosition = Object.assign({}, position);
         this.velocity = velocity;
         this.radius = 15;
         this.color = color;
@@ -24,7 +25,12 @@ class Ghost {
         c.closePath();
     };
 
-    update() {
+    update(reset) {
+        if (reset) {
+            this.position.x = this.startPosition.x;
+            this.position.y = this.startPosition.y;
+        }
+
         this.draw();
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;

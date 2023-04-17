@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    background-color: black;
+}       
+  
+#score {
+    font-size: 25px;
+    color: white;
+    font-family: "Press Start 2P";
+}
+
+#pause-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid white;
+    border-radius: 5px;
+    display: none;
+}
+  
+#pause-menu h2 {
+    margin-top: 0;
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+  
+#pause-menu button {
+    margin: 10px;
+}
+
+.button {
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* as its name implies, this css code applies only to the last element */
+.button:last-of-type {
+    margin-right: 0;
+}
+
+.button:hover {
+    background-color: white;
+    color: black;
+    border-color: black;
+}

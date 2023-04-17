@@ -2,12 +2,12 @@
 // Boundary Class
 //
 
-import { c } from './html.js';
+import { c, canvas } from './html.js';
 
 export class Boundary {
     static width = 40;
     static height = 40;
-    constructor({position, image}) {
+    constructor({ position, image }) {
         this.position = position;
         this.width = 40;
         this.height = 40;
@@ -51,7 +51,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i
                         },
-                        image: createImage('./assets/pipeHorizontal.png')
+                        image: createImage('./assets/map/pipeHorizontal.png')
                     })
                 )
                 break;
@@ -62,7 +62,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i
                         },
-                        image: createImage('./assets/pipeVertical.png')
+                        image: createImage('./assets/map/pipeVertical.png')
                     })
                 )
                 break;
@@ -73,7 +73,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i
                         },
-                        image: createImage('./assets/pipeCorner1.png')
+                        image: createImage('./assets/map/pipeCorner1.png')
                     })
                 )
                 break;
@@ -84,7 +84,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i
                         },
-                        image: createImage('./assets/pipeCorner2.png')
+                        image: createImage('./assets/map/pipeCorner2.png')
                     })
                 )
                 break;
@@ -95,7 +95,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i
                         },
-                        image: createImage('./assets/pipeCorner3.png')
+                        image: createImage('./assets/map/pipeCorner3.png')
                     })
                 )
                 break;
@@ -106,7 +106,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i
                         },
-                        image: createImage('./assets/pipeCorner4.png')
+                        image: createImage('./assets/map/pipeCorner4.png')
                     })
                 )
                 break;
@@ -117,7 +117,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i
                         },
-                        image: createImage('./assets/block.png')
+                        image: createImage('./assets/map/block.png')
                     })
                 )
                 break;
@@ -128,7 +128,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/capLeft.png')
+                        image: createImage('./assets/map/capLeft.png')
                     })
                 )
                 break;
@@ -139,7 +139,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/capRight.png')
+                        image: createImage('./assets/map/capRight.png')
                     })
                 )
                 break;
@@ -150,7 +150,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/capBottom.png')
+                        image: createImage('./assets/map/capBottom.png')
                     })
                 )
                 break;
@@ -161,7 +161,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/capTop.png')
+                        image: createImage('./assets/map/capTop.png')
                     })
                 )
                 break;
@@ -172,7 +172,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/pipeCross.png')
+                        image: createImage('./assets/map/pipeCross.png')
                     })
                 )
                 break;
@@ -183,7 +183,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/pipeConnectorTop.png')
+                        image: createImage('./assets/map/pipeConnectorTop.png')
                     })
                 )
                 break;
@@ -194,7 +194,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/pipeConnectorRight.png')
+                        image: createImage('./assets/map/pipeConnectorRight.png')
                     })
                 )
                 break;
@@ -205,7 +205,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/pipeConnectorBottom.png')
+                        image: createImage('./assets/map/pipeConnectorBottom.png')
                     })
                 )
                 break;
@@ -216,7 +216,7 @@ map.forEach((row, i) => {
                             x: j * Boundary.width,
                             y: i * Boundary.height
                         },
-                        image: createImage('./assets/pipeConnectorLeft.png')
+                        image: createImage('./assets/map/pipeConnectorLeft.png')
                     })
                 )
                 break;
@@ -240,6 +240,6 @@ map.forEach((row, i) => {
                     })
                 )
                 break;
-      }
+        }
     })
-  })
+})
