@@ -2,12 +2,13 @@
 // Animate
 //
 
-import { boundaries, pellets, powerUps }                      from '../boundary.js';
-import { keys, lastKey }                            from '../keyboardInput.js';
-import { player }                                   from '../player.js';
-import { ghosts }                                   from '../ghost.js';
-import { canvas, c, scoreEl }                       from '../html.js';
-import { arrowUpCollisionPlayer, arrowRightCollisionPlayer, arrowDownCollisionPlayer, arrowLeftCollisionPlayer, circleCollidesWithRectangle } from './collisionTools.js';
+import { boundaries, pellets, powerUps }                        from '../boundary.js';
+import { keys, lastKey }                                        from '../keyboardInput.js';
+import { player }                                               from '../player.js';
+import { ghosts }                                               from '../ghost.js';
+import { canvas, c, scoreEl }                                   from '../html.js';
+import { arrowUpCollisionPlayer, arrowRightCollisionPlayer, 
+         arrowDownCollisionPlayer, arrowLeftCollisionPlayer, circleCollidesWithRectangle } from './collisionMethods.js';
 
 let score = 0;
 let animationId;
@@ -25,7 +26,7 @@ function animate() {
 
     // win condition
     if (pellets.length === 0) {
-        cancelAnimationFrame(animationId);
+        cancelAnimationFrame(animationId);''
         // next level / faster ghosts / etc
     }
 
@@ -33,7 +34,6 @@ function animate() {
     for (let i = ghosts.length - 1; 0 <= i; i--) {
         const ghost = ghosts[i];
 
-        // ghost touches player
         if (Math.hypot(
             ghost.position.x - player.position.x, 
             ghost.position.y - player.position.y
@@ -112,6 +112,7 @@ function animate() {
     ghosts.forEach(ghost => {
         ghost.update();
 
+        // check if ghost is colliding with boundary
         const collisions = [];
         boundaries.forEach(boundary => {
             if (
@@ -179,22 +180,28 @@ function animate() {
             }
         })
 
-        if (collisions.length > ghost.prevCollisions.length)
+        // check if ghost has collided with a new boundary 
+        if (collisions.length > ghost.prevCollisions.length)    
             ghost.prevCollisions = collisions; 
 
+        // check if a new path has opened
         if (JSON.stringify(collisions) !== JSON.stringify(ghost.prevCollisions)) {
+            // add the direction of the ghost as a pathway that it can take
             if (ghost.velocity.x > 0) ghost.prevCollisions.push('right')
             else if (ghost.velocity.x < 0) ghost.prevCollisions.push('left')
             else if (ghost.velocity.y < 0) ghost.prevCollisions.push('up')
             else if (ghost.velocity.y > 0) ghost.prevCollisions.push('down')
 
-            const pathways = ghost.prevCollisions.filter((collision 
+            // find potential pathway(s) for ghost
+            const pathways = ghost.prevCollisions.filter((prevCollision 
             ) => {
-                return !collisions.includes(collision);
+                return !collisions.includes(prevCollision);
             })
-
+            
+            // choose a random path as the ghost's direction
             const direction = pathways[Math.floor(Math.random() * pathways.length)]
 
+            // based on the path chosen, move into that direction
             switch (direction) {
                 case 'down':
                     ghost.velocity.y = ghost.speed;
