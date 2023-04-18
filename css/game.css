@@ -2,11 +2,18 @@ body {
     margin: 0;
     background-color: black;
 }       
-  
+
 #score {
     font-size: 25px;
     color: white;
     font-family: "Press Start 2P";
+}
+
+#canvasGame {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #pause-menu {

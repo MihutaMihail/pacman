@@ -3,6 +3,7 @@
 //
 
 import { c } from './html.js';
+import { centerMap } from './boundary.js';
 
 class Player {
     constructor({position, velocity}) {
@@ -52,8 +53,8 @@ import { Boundary } from './boundary.js';
 
 export const player = new Player({
     position : {
-        x: Boundary.width + Boundary.width / 2,
-        y: Boundary.height + Boundary.height / 2
+        x: ((Boundary.width + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+        y: (( Boundary.height + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
     },
     velocity: {
         x: 0,

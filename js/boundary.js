@@ -2,7 +2,7 @@
 // Boundary Class
 //
 
-import { c, canvas } from './html.js';
+import { c } from './html.js';
 
 export class Boundary {
     static width = 40;
@@ -15,8 +15,32 @@ export class Boundary {
     };
 
     draw() {
-        c.drawImage(this.image, this.position.x, this.position.y);
+        c.drawImage(this.image, centerMap.centerPosX + this.position.x - centerMap.halfWidth, centerMap.centerPosY + this.position.y - centerMap.halfHeight);
     };
+}
+
+//
+// Center Map
+//
+
+// get position of canvas
+const canvasRect = c.canvas.getBoundingClientRect();
+const canvasX = canvasRect.left;
+const canvasY = canvasRect.top;
+
+// calculate position of boundary (center)
+const posX = canvasX + c.canvas.width / 2;
+const posY = canvasY + c.canvas.height / 2;
+
+// get half of map width + height
+const mapHalfWidth = (map[0].length / 2) * Boundary.height;
+const mapHalfHeight = (map.length / 2) * Boundary.width;
+
+export const centerMap = {
+    centerPosX: posX,
+    centerPosY: posY,
+    halfHeight: mapHalfHeight,
+    halfWidth: mapHalfWidth
 }
 
 //
@@ -225,8 +249,8 @@ export function createMap() {
                     pellets.push(
                         new Pellet({
                             position: {
-                                x: j * Boundary.width + Boundary.width / 2,
-                                y: i * Boundary.height + Boundary.height / 2
+                                x: ((j * Boundary.width + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+                                y: ((i * Boundary.height + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
                             },
                         })
                     )
@@ -235,8 +259,8 @@ export function createMap() {
                     powerUps.push(
                         new PowerUp({
                             position: {
-                                x: j * Boundary.width + Boundary.width / 2,
-                                y: i * Boundary.height + Boundary.height / 2
+                                x: ((j * Boundary.width + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+                                y: ((i * Boundary.height + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
                             },
                         })
                     )

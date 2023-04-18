@@ -6,7 +6,7 @@ import { c } from './html.js';
 
 class Ghost {
     static speed = 1;
-    constructor({position, velocity, color}) {
+    constructor({ position, velocity, color }) {
         this.position = position;
         this.startPosition = Object.assign({}, position);
         this.velocity = velocity;
@@ -37,34 +37,33 @@ class Ghost {
     }
 }
 
-
 //
 // Ghost Variable
 //
 
-import { Boundary } from './boundary.js';
+import { Boundary, centerMap } from './boundary.js';
 
 export const ghosts = [
     new Ghost({
-        position : {
-            x: Boundary.width * 6 + Boundary.width / 2,
-            y: Boundary.height + Boundary.height / 2
+        position: {
+            x: ((Boundary.width * 6 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+            y: ((Boundary.height + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
         },
         velocity: {
             x: Ghost.speed,
             y: 0
         },
-        color : 'red'
+        color: 'red'
     }),
     new Ghost({
-        position : {
-            x: Boundary.width * 3 + Boundary.width / 2,
-            y: Boundary.height * 5 + Boundary.height / 2
+        position: {
+            x: ((Boundary.width * 3 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+            y: ((Boundary.height * 5 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
         },
         velocity: {
             x: Ghost.speed,
             y: 0
         },
-        color : 'pink'
+        color: 'pink'
     })
 ]

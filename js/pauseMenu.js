@@ -27,7 +27,6 @@ document.getElementById('resume-button').addEventListener('click', function () {
 
 function resumeGame() {
     hidePauseMenu();
-
     paused = false;
 
     if (!playerDie) {
@@ -49,9 +48,12 @@ document.querySelector('#restart-button').addEventListener('click', function () 
 
 
 function restartGameButton() {
-    resumeGame();
+    hidePauseMenu();
 
     restartGameCode();
+
+    paused = false;
+    animate();
 }
 
 //

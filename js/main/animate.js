@@ -99,7 +99,7 @@ export function animate() {
 
         // draw boundaries + check collision
         boundaries.forEach((boundary) => {
-            boundary.draw(c); 
+            boundary.draw(); 
             
             if (
                 circleCollidesWithRectangle({
@@ -252,6 +252,8 @@ export function restartGameCode(){
     player.rotation = 0;
     player.update(true);
 
+    playerDie = false;
+
     // reset ghosts
     collisions = [];
 
@@ -265,6 +267,4 @@ export function restartGameCode(){
 
     // reset map
     createMap();
-
-    animate();
 }

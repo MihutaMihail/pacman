@@ -62,6 +62,12 @@
     that said row. In this case, we create a power up in which we push this power up into our array of power ups. Its position is set by
     using 'i' and 'j' (both index) to get the column and row of the power up.
 
+**/// c.canvas.getBoundingClientRect() \\\**
+
+    This functions will return a DOMRect object which has the following properties : 'top', 'left', 'right', 'bottom', 'width' and 'height'.
+    In this case, we use the properties 'left' and 'top' because we want to get the position of the canvas on the screen to then calculate
+    the position of the game boundaries.
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 //

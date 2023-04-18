@@ -2,35 +2,36 @@
 // Circle (player,ghost) Collision w/ Rectangle (boundary)
 //
 
-import { Boundary }       from '../boundary.js';
+import { Boundary, centerMap } from '../boundary.js';
+import { c } from '../html.js';
 
 export function circleCollidesWithRectangle({ circle, rectangle }) {
     const collisionMargin = (Boundary.width / 2) - circle.radius - 1;
-  
+
     const circleTop = circle.position.y - circle.radius + circle.velocity.y;
     const circleRight = circle.position.x + circle.radius + circle.velocity.x;
     const circleBottom = circle.position.y + circle.radius + circle.velocity.y;
     const circleLeft = circle.position.x - circle.radius + circle.velocity.x;
 
-    const rectTop = rectangle.position.y - collisionMargin;
-    const rectRight = rectangle.position.x + rectangle.width + collisionMargin;
-    const rectBottom = rectangle.position.y + rectangle.height + collisionMargin;
-    const rectLeft = rectangle.position.x - collisionMargin;
+    const rectTop = centerMap.centerPosY + rectangle.position.y - collisionMargin - centerMap.halfHeight;
+    const rectRight = centerMap.centerPosX + rectangle.position.x + rectangle.width + collisionMargin - centerMap.halfWidth;
+    const rectBottom = centerMap.centerPosY  + rectangle.position.y + rectangle.height + collisionMargin - centerMap.halfHeight;
+    const rectLeft = centerMap.centerPosX  + rectangle.position.x - collisionMargin - centerMap.halfWidth;
 
     return (
-      circleTop <= rectBottom &&
-      circleRight >= rectLeft &&
-      circleBottom >= rectTop &&
-      circleLeft <= rectRight
+        circleTop <= rectBottom &&
+        circleRight >= rectLeft &&
+        circleBottom >= rectTop &&
+        circleLeft <= rectRight
     );
-  }
+}
 
 //
 // Arrow Keys Collisions
 //
 
-import { boundaries }       from '../boundary.js';
-import { player }           from '../player.js';
+import { boundaries } from '../boundary.js';
+import { player } from '../player.js';
 
 // Arrow Up
 export function arrowUpCollisionPlayer() {
@@ -39,7 +40,7 @@ export function arrowUpCollisionPlayer() {
         if (
             circleCollidesWithRectangle({
                 circle: {
-                    ...player, 
+                    ...player,
                     velocity: {
                         x: 0,
                         y: -4
@@ -63,7 +64,7 @@ export function arrowRightCollisionPlayer() {
         if (
             circleCollidesWithRectangle({
                 circle: {
-                    ...player, 
+                    ...player,
                     velocity: {
                         x: 4,
                         y: 0
@@ -87,7 +88,7 @@ export function arrowDownCollisionPlayer() {
         if (
             circleCollidesWithRectangle({
                 circle: {
-                    ...player, 
+                    ...player,
                     velocity: {
                         x: 0,
                         y: 4
@@ -111,7 +112,7 @@ export function arrowLeftCollisionPlayer() {
         if (
             circleCollidesWithRectangle({
                 circle: {
-                    ...player, 
+                    ...player,
                     velocity: {
                         x: -4,
                         y: 0
