@@ -15,6 +15,7 @@ class Ghost {
         this.prevCollisions = [];
         this.speed = 1;
         this.scared = false;
+        this.timeoutId;
     };
 
     draw() {
@@ -43,7 +44,13 @@ class Ghost {
 
 import { Boundary, centerMap } from './boundary.js';
 
-export const ghosts = [
+export let ghosts = [];
+
+export function getGhostsLevelOne() {
+    ghosts = [...ghostsLevelOne];
+}
+
+const ghostsLevelOne = [
     new Ghost({
         position: {
             x: ((Boundary.width * 6 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
@@ -66,4 +73,4 @@ export const ghosts = [
         },
         color: 'pink'
     })
-]
+];

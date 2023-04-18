@@ -1,4 +1,4 @@
-import { animate, restartGameCode, playerDie } from './main/animate.js';
+import { animate, restartGameLevelOne, playerDie } from './main/animate.js';
 
 export let paused = false;
 
@@ -29,7 +29,7 @@ function resumeGame() {
     hidePauseMenu();
     paused = false;
 
-    if (!playerDie) {
+    if (!playerDie.getDeath()) {
         animate();
     }
 }
@@ -50,7 +50,7 @@ document.querySelector('#restart-button').addEventListener('click', function () 
 function restartGameButton() {
     hidePauseMenu();
 
-    restartGameCode();
+    restartGameLevelOne();
 
     paused = false;
     animate();

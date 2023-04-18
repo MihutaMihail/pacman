@@ -2,19 +2,47 @@
 // Animate
 //
 
-import { paused }                                               from '../pauseMenu.js';
-import { boundaries, pellets, powerUps, createMap }                        from '../boundary.js';
-import { keys, lastKey }                                        from '../keyboardInput.js';
-import { player }                                               from '../player.js';
-import { ghosts }                                               from '../ghost.js';
-import { canvas, c, scoreEl }                                   from '../html.js';
-import { arrowUpCollisionPlayer, arrowRightCollisionPlayer, 
-         arrowDownCollisionPlayer, arrowLeftCollisionPlayer, circleCollidesWithRectangle } from './collisionMethods.js';
+import { paused } from '../pauseMenu.js';
+import { boundaries, pellets, powerUps, createMap } from '../boundary.js';
+import { keys, lastKey } from '../keyboardInput.js';
+import { player } from '../player.js';
+import { ghosts, getGhostsLevelOne } from '../ghost.js';
+import { canvas, c, scoreEl } from '../html.js';
+import { restartScore, restartGhosts, restartPlayer } from '../restart.js'
+import {
+    arrowUpCollisionPlayer, arrowRightCollisionPlayer,
+    arrowDownCollisionPlayer, arrowLeftCollisionPlayer, circleCollidesWithRectangle
+} from './collisionMethods.js';
 
-export let score = 0;
-export let playerDie = false;
+export const score = {
+    number: 0,
+    increment(value) {
+        this.number += value;
+    },
+    getNumber() {
+        return this.number;
+    },
+    setNumber(number) {
+        this.number = number;
+    }
+};
+
+export const playerDie = {
+    isTrue: false,
+    getDeath() {
+        return this.isTrue;
+    },
+    setDeath(boolean) {
+        this.isTrue = boolean
+    }
+};
+
 let animationId;
+let numPellets = 0;
+let isHalfPellets = false;
 let collisions = [];
+
+setUpGame();
 
 export function animate() {
     if (!paused) {
@@ -24,7 +52,7 @@ export function animate() {
 
         // player movement
         if (keys.ArrowUp.pressed && lastKey === 'ArrowUp') arrowUpCollisionPlayer();
-        else if (keys.ArrowLeft.pressed && lastKey === 'ArrowLeft')  arrowLeftCollisionPlayer();
+        else if (keys.ArrowLeft.pressed && lastKey === 'ArrowLeft') arrowLeftCollisionPlayer();
         else if (keys.ArrowDown.pressed && lastKey === 'ArrowDown') arrowDownCollisionPlayer();
         else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') arrowRightCollisionPlayer();
 
@@ -32,6 +60,11 @@ export function animate() {
         if (pellets.length === 0) {
             cancelAnimationFrame(animationId);
             // next level / faster ghosts / etc
+        } else if (pellets.length === Math.floor(numPellets / 2) && !isHalfPellets) {
+            ghosts.forEach(ghost => {
+                ghost.speed += 1;
+            });
+            isHalfPellets = true;
         }
 
         // collision between ghost and player
@@ -39,19 +72,21 @@ export function animate() {
             const ghost = ghosts[i];
 
             if (Math.hypot(
-                ghost.position.x - player.position.x, 
+                ghost.position.x - player.position.x,
                 ghost.position.y - player.position.y
-                ) < 
+            ) <
                 ghost.radius + player.radius
-                ) {
-                    if (ghost.scared) {
-                        ghosts.splice(i, 1);
-                    } else {
-                        // player loses
-                        cancelAnimationFrame(animationId);
-                        playerDie = true;
-                    }
+            ) {
+                if (ghost.scared) {
+                    ghosts.splice(i, 1);
+                    score.increment(200);
+                    scoreEl.innerHTML = score.getNumber();
+                } else {
+                    // player loses
+                    cancelAnimationFrame(animationId);
+                    playerDie.setDeath(true);
                 }
+            }
         }
 
         // draw power ups + check collision
@@ -60,23 +95,24 @@ export function animate() {
             powerUp.draw();
 
             if (Math.hypot(
-                powerUp.position.x - player.position.x, 
+                powerUp.position.x - player.position.x,
                 powerUp.position.y - player.position.y
-                ) < 
+            ) <
                 powerUp.radius + player.radius
-                ) 
-            {
+            ) {
                 powerUps.splice(i, 1);
 
                 // make ghosts scared
                 ghosts.forEach(ghost => {
-                    ghost.scared = true;
+                    clearTimeout(ghost.timeoutId);
 
-                    setTimeout(() => {
+                    ghost.scared = true;
+                    ghost.timeoutId = setTimeout(() => {
                         ghost.scared = false;
+                        ghost.timeoutId = false;
                     }, 5000)
                 })
-            } 
+            }
         }
 
         // draw pellets + check collision
@@ -85,28 +121,28 @@ export function animate() {
             pellet.draw();
 
             if (Math.hypot(
-                pellet.position.x - player.position.x, 
+                pellet.position.x - player.position.x,
                 pellet.position.y - player.position.y
-                ) < 
+            ) <
                 pellet.radius + player.radius
-                ) 
-            {
+            ) {
                 pellets.splice(i, 1);
-                score += 10;
-                scoreEl.innerHTML = score;
-            } 
+
+                score.increment(10);
+                scoreEl.innerHTML = score.getNumber();
+            }
         }
 
         // draw boundaries + check collision
         boundaries.forEach((boundary) => {
-            boundary.draw(); 
-            
+            boundary.draw();
+
             if (
                 circleCollidesWithRectangle({
                     circle: player,
                     rectangle: boundary
                 })
-            ){
+            ) {
                 player.velocity.x = 0;
                 player.velocity.y = 0;
             }
@@ -125,7 +161,7 @@ export function animate() {
                     !collisions.includes('right') &&
                     circleCollidesWithRectangle({
                         circle: {
-                            ...ghost, 
+                            ...ghost,
                             velocity: {
                                 x: ghost.speed,
                                 y: 0
@@ -133,7 +169,7 @@ export function animate() {
                         },
                         rectangle: boundary
                     })
-                ){
+                ) {
                     collisions.push('right');
                 }
 
@@ -141,7 +177,7 @@ export function animate() {
                     !collisions.includes('left') &&
                     circleCollidesWithRectangle({
                         circle: {
-                            ...ghost, 
+                            ...ghost,
                             velocity: {
                                 x: -ghost.speed,
                                 y: 0
@@ -149,7 +185,7 @@ export function animate() {
                         },
                         rectangle: boundary
                     })
-                ){
+                ) {
                     collisions.push('left');
                 }
 
@@ -157,7 +193,7 @@ export function animate() {
                     !collisions.includes('up') &&
                     circleCollidesWithRectangle({
                         circle: {
-                            ...ghost, 
+                            ...ghost,
                             velocity: {
                                 x: 0,
                                 y: -ghost.speed
@@ -165,7 +201,7 @@ export function animate() {
                         },
                         rectangle: boundary
                     })
-                ){
+                ) {
                     collisions.push('up');
                 }
 
@@ -173,7 +209,7 @@ export function animate() {
                     !collisions.includes('down') &&
                     circleCollidesWithRectangle({
                         circle: {
-                            ...ghost, 
+                            ...ghost,
                             velocity: {
                                 x: 0,
                                 y: ghost.speed
@@ -181,14 +217,14 @@ export function animate() {
                         },
                         rectangle: boundary
                     })
-                ){
+                ) {
                     collisions.push('down');
                 }
             })
 
             // check if ghost has collided with a new boundary 
-            if (collisions.length > ghost.prevCollisions.length)    
-                ghost.prevCollisions = collisions; 
+            if (collisions.length > ghost.prevCollisions.length)
+                ghost.prevCollisions = collisions;
 
             // check if a new path has opened
             if (JSON.stringify(collisions) !== JSON.stringify(ghost.prevCollisions)) {
@@ -199,11 +235,11 @@ export function animate() {
                 else if (ghost.velocity.y > 0) ghost.prevCollisions.push('down')
 
                 // find potential pathway(s) for ghost
-                const pathways = ghost.prevCollisions.filter((prevCollision 
+                const pathways = ghost.prevCollisions.filter((prevCollision
                 ) => {
                     return !collisions.includes(prevCollision);
                 })
-                
+
                 // choose a random path as the ghost's direction
                 const direction = pathways[Math.floor(Math.random() * pathways.length)]
 
@@ -213,15 +249,15 @@ export function animate() {
                         ghost.velocity.y = ghost.speed;
                         ghost.velocity.x = 0;
                         break;
-                    case 'up' :
+                    case 'up':
                         ghost.velocity.y = -ghost.speed;
                         ghost.velocity.x = 0;
                         break;
-                    case 'right' :
+                    case 'right':
                         ghost.velocity.y = 0;
                         ghost.velocity.x = ghost.speed;
                         break;
-                    case 'left' :
+                    case 'left':
                         ghost.velocity.y = 0;
                         ghost.velocity.x = -ghost.speed;
                         break;
@@ -229,7 +265,7 @@ export function animate() {
 
                 ghost.prevCollisions = [];
             }
-        }) 
+        })
 
         // rotate player in the direction that it's facing
         if (player.velocity.x > 0) player.rotation = 0
@@ -237,34 +273,21 @@ export function animate() {
         else if (player.velocity.y > 0) player.rotation = Math.PI / 2
         else if (player.velocity.y < 0) player.rotation = Math.PI * 1.5
     }
-} 
+}
 
 animate();
 
-export function restartGameCode(){
-    // reset score
-    score = 0;
-    scoreEl.innerHTML = score;
-
-    // reset player
-    player.velocity.x = 0;
-    player.velocity.y = 0;
-    player.rotation = 0;
-    player.update(true);
-
-    playerDie = false;
-
-    // reset ghosts
-    collisions = [];
-
-    ghosts.forEach(ghost => {
-        ghost.velocity.x = 0;
-        ghost.velocity.y = 0;
-        ghost.prevCollisions = [];
-        ghost.update(true);
-        ghost.velocity.x = ghost.speed;
-    })
-
-    // reset map
+export function restartGameLevelOne() {
+    restartScore();
+    restartPlayer();
+    restartGhosts();
     createMap();
+}
+
+function setUpGame() {
+    // get ghosts level one
+    getGhostsLevelOne();
+
+    // get number pellets
+    numPellets = pellets.length;
 }

@@ -164,3 +164,14 @@
     of the rectangle. If we were to change the speed of the ghost / player, this function will no longer work properly. That's why we
     add a 'padding' to the equation. This padding will take the top / bottom / left / right of a circle and minus 1 (ie because we decreased
     the speed of the ghost by 1)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+//
+// Ghosts
+//
+
+**/// ghosts = [...ghostsLevelOne]; \\\**
+
+    When doing 'ghosts = ghostsLevelOne;' you actually reference the array 'ghostsLevelOne' which means that if you modify the 'ghosts' array,
+    it will also modify the 'ghostsLevelOne' array. The code above will create a copy instead which you can freely modify.
