@@ -1,6 +1,14 @@
 import { animate, restartGameLevelOne, playerDie } from './main/animate.js';
 
-export let paused = false;
+export const paused = {
+    isTrue: false,
+    getPaused() {
+        return this.isTrue;
+    },
+    setPaused(boolean) {
+        this.isTrue = boolean
+    }
+};
 
 //
 // Show Pause Menu
@@ -9,7 +17,7 @@ export let paused = false;
 document.addEventListener('keydown', function ({ key }) {
     if (key == 'Escape') {
         showPauseMenu();
-        paused = true;
+        paused.setPaused(true);
     }
 });
 
@@ -27,7 +35,7 @@ document.getElementById('resume-button').addEventListener('click', function () {
 
 function resumeGame() {
     hidePauseMenu();
-    paused = false;
+    paused.setPaused(false);
 
     if (!playerDie.getDeath()) {
         animate();
@@ -52,7 +60,7 @@ function restartGameButton() {
 
     restartGameLevelOne();
 
-    paused = false;
+    paused.setPaused(false);
     animate();
 }
 

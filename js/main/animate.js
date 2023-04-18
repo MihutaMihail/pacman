@@ -7,7 +7,7 @@ import { boundaries, pellets, powerUps, createMap } from '../boundary.js';
 import { keys, lastKey } from '../keyboardInput.js';
 import { player } from '../player.js';
 import { ghosts, getGhostsLevelOne } from '../ghost.js';
-import { canvas, c, scoreEl } from '../html.js';
+import { canvas, c, scoreEl, livesEl } from '../html.js';
 import { restartScore, restartGhosts, restartPlayer } from '../restart.js'
 import {
     arrowUpCollisionPlayer, arrowRightCollisionPlayer,
@@ -40,12 +40,14 @@ export const playerDie = {
 let animationId;
 let numPellets = 0;
 let isHalfPellets = false;
+let lives = 3;
 let collisions = [];
+let gameBegin = true;
 
 setUpGame();
 
 export function animate() {
-    if (!paused) {
+    if (!paused.getPaused()) {
         animationId = requestAnimationFrame(animate);
 
         c.clearRect(0, 0, canvas.width, canvas.height);
@@ -83,8 +85,9 @@ export function animate() {
                     scoreEl.innerHTML = score.getNumber();
                 } else {
                     // player loses
-                    cancelAnimationFrame(animationId);
+                    // cancelAnimationFrame(animationId);
                     playerDie.setDeath(true);
+                    lostLife();
                 }
             }
         }
@@ -110,7 +113,7 @@ export function animate() {
                     ghost.timeoutId = setTimeout(() => {
                         ghost.scared = false;
                         ghost.timeoutId = false;
-                    }, 5000)
+                    }, 2000)
                 })
             }
         }
@@ -272,12 +275,38 @@ export function animate() {
         else if (player.velocity.x < 0) player.rotation = Math.PI
         else if (player.velocity.y > 0) player.rotation = Math.PI / 2
         else if (player.velocity.y < 0) player.rotation = Math.PI * 1.5
+
+        // idea on how to stop the game for a few seconds (while the little song plays before the game starts)
+        /*if (gameBegin) {
+            paused.setPaused(true);
+            setTimeout(() => {
+                paused.setPaused(false);
+                gameBegin = false;
+            }, 2000)
+        }*/
     }
 }
 
 animate();
 
+function lostLife() {
+    restartPlayer();
+    restartGhosts();
+
+    // remove life
+    lives -= 1; 
+    livesEl.innerHTML = lives;
+
+    if (lives == 0) {
+        restartGameLevelOne();
+    }
+}
+
 export function restartGameLevelOne() {
+    // restart lives
+    lives = 3;
+    livesEl.innerHTML = lives;
+
     restartScore();
     restartPlayer();
     restartGhosts();

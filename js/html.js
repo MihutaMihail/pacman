@@ -14,5 +14,11 @@ canvas.height = innerHeight;
 
 export let scoreEl = document.querySelector('#score');
 
+//
+// Lives element
+//
+
+export let livesEl = document.querySelector('#lives');
+
 
  

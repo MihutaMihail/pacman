@@ -9,6 +9,12 @@ body {
     font-family: "Press Start 2P";
 }
 
+#lives {
+    font-size: 25px;
+    color: white;
+    font-family: "Press Start 2P";
+}
+
 #canvasGame {
     position: fixed;
     top: 50%;

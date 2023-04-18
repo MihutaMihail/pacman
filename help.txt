@@ -15,6 +15,11 @@
     a value, it will export a reference to the actual value. This means that if the value is modified after exporting it, it 
     will still have the modified value
 
+**/// animate() x 2 \\\**
+
+    Be careful with calling the method 'animate()' because if you call it while 'animate()' is already running, it will speed up the game. 
+    If you have previously cancelled the 'requestAnimationFrame()' and then call 'animate()' it will work fine
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 //

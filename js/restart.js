@@ -18,7 +18,7 @@ export function restartPlayer() {
     player.velocity.y = 0;
     player.rotation = 0;
     player.update(true);
-    playerDie.setDeath(true);
+    playerDie.setDeath(false);
 }
 
 export function restartGhosts() {
