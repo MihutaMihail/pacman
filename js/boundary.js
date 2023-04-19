@@ -3,6 +3,11 @@
 //
 
 import { c } from './html.js';
+import { map, getMap } from './map.js';
+import { Pellet } from './pellet.js';
+import { PowerUp } from './powerUp.js';
+
+getMap('one');
 
 export class Boundary {
     static width = 40;
@@ -54,12 +59,23 @@ function createImage(src) {
 }
 
 //
-// Boundary Draw
+// Change Boundary (level)
 //
 
-import { map } from './map.js';
-import { Pellet } from './pellet.js';
-import { PowerUp } from './powerUp.js';
+export function getMapLevel(level) {
+    switch(level) {
+        case 'one':
+            changeMap(level)
+            break;
+        case 'two':
+            changeMap(level)
+            break;
+    }
+}
+
+//
+// Boundary Draw
+//
 
 export const boundaries = [];
 export const pellets = [];

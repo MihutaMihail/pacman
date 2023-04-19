@@ -39,16 +39,27 @@ class Ghost {
 }
 
 //
+// Change Ghost (level)
+//
+
+export function getGhosts(level) {
+    switch(level) {
+        case 'one':
+            ghosts = [...ghostsLevelOne];
+            break;
+        case 'two':
+            ghosts = [...ghostsLevelTwo];
+            break;
+    }
+}
+
+//
 // Ghost Variable
 //
 
 import { Boundary, centerMap } from './boundary.js';
 
 export let ghosts = [];
-
-export function getGhostsLevelOne() {
-    ghosts = [...ghostsLevelOne];
-}
 
 const ghostsLevelOne = [
     new Ghost({
@@ -74,3 +85,5 @@ const ghostsLevelOne = [
         color: 'pink'
     })
 ];
+
+const ghostsLevelTwo = [];

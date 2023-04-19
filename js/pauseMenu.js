@@ -1,14 +1,4 @@
-import { animate, restartGameLevelOne, playerDie } from './main/animate.js';
-
-export const paused = {
-    isTrue: false,
-    getPaused() {
-        return this.isTrue;
-    },
-    setPaused(boolean) {
-        this.isTrue = boolean
-    }
-};
+import { animate, animationId, restartGame } from './main/animate.js';
 
 //
 // Show Pause Menu
@@ -17,7 +7,7 @@ export const paused = {
 document.addEventListener('keydown', function ({ key }) {
     if (key == 'Escape') {
         showPauseMenu();
-        paused.setPaused(true);
+        cancelAnimationFrame(animationId.getId());
     }
 });
 
@@ -35,11 +25,8 @@ document.getElementById('resume-button').addEventListener('click', function () {
 
 function resumeGame() {
     hidePauseMenu();
-    paused.setPaused(false);
 
-    if (!playerDie.getDeath()) {
-        animate();
-    }
+    animationId.setId(requestAnimationFrame(animate));
 }
 
 function hidePauseMenu() {
@@ -56,12 +43,8 @@ document.querySelector('#restart-button').addEventListener('click', function () 
 
 
 function restartGameButton() {
-    hidePauseMenu();
-
-    restartGameLevelOne();
-
-    paused.setPaused(false);
-    animate();
+    resumeGame();
+    restartGame();
 }
 
 //
