@@ -79,11 +79,11 @@ export function animate() {
     else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') arrowRightCollisionPlayer();
 
     // player wins level
-    if (pellets.length === 60 && !isNextLevel) {
+    if (pellets.length === 67 && !isNextLevel) {
         isNextLevel = true;
         currentLevel += 1
-
-        //nextLevel();
+        
+        nextLevel();
     }
 
     // increase ghost speed when half pellets
@@ -349,23 +349,31 @@ export function restartGame() {
     health.setHealth(2);
     healthEl.innerHTML = health.getHealth();
 
-    // restart half pellets entry
+    // reset half pellets entry
     isHalfPellets = false;
+
+    // reset level
+    currentLevel = 1;
 
     restartScore();
     restartPlayer();
-    restartGhosts();
+    restartGhosts(1);
 
     // redrawn map
     getMap(1);
     createMap();
 }
 
-// function nextLevel() {
-//     restartPlayer();
-//     restartGhosts();
-    
-//     // redrawn map
-//     getMap(currentLevel);
-//     createMap();
-// }
+function nextLevel() {
+    // restart half pellets entry
+    isHalfPellets = false;
+
+    // redrawn map
+    getMap(currentLevel);
+    createMap();
+
+    restartPlayer();
+    restartGhosts(currentLevel);
+
+    isNextLevel = false;
+}

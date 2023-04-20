@@ -95,7 +95,7 @@ const ghostsLevelTwo = [
             x: 1,
             y: 0
         },
-        color: 'red'
+        color: 'yellow'
     }),
     new Ghost({
         position: {
@@ -106,7 +106,7 @@ const ghostsLevelTwo = [
             x: 1,
             y: 0
         },
-        color: 'pink'
+        color: 'blue'
     }),
     new Ghost({
         position: {
@@ -117,6 +117,6 @@ const ghostsLevelTwo = [
             x: 1,
             y: 0
         },
-        color: 'red'
+        color: 'orange'
     })
 ];

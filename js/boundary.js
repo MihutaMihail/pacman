@@ -77,12 +77,14 @@ export function getMapLevel(level) {
 // Boundary Draw
 //
 
-export const boundaries = [];
+export let boundaries = [];
 export let pellets = [];
-export const powerUps = [];
+export let powerUps = [];
 
 export function createMap() {
+    boundaries = [];
     pellets = [];
+    powerUps = [];
 
     map.forEach((row, i) => {
         row.forEach((symbol, j) => {
