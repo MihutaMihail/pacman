@@ -5,7 +5,6 @@
 import { c } from './html.js';
 
 class Ghost {
-    static speed = 1;
     constructor({ position, velocity, color }) {
         this.position = position;
         this.startPosition = Object.assign({}, position);
@@ -44,10 +43,10 @@ class Ghost {
 
 export function getGhosts(level) {
     switch(level) {
-        case 'one':
+        case 1:
             ghosts = [...ghostsLevelOne];
             break;
-        case 'two':
+        case 2:
             ghosts = [...ghostsLevelTwo];
             break;
     }
@@ -68,7 +67,7 @@ const ghostsLevelOne = [
             y: ((Boundary.height + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
         },
         velocity: {
-            x: Ghost.speed,
+            x: 1,
             y: 0
         },
         color: 'red'
@@ -79,11 +78,45 @@ const ghostsLevelOne = [
             y: ((Boundary.height * 5 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
         },
         velocity: {
-            x: Ghost.speed,
+            x: 1,
             y: 0
         },
         color: 'pink'
     })
 ];
 
-const ghostsLevelTwo = [];
+const ghostsLevelTwo = [
+    new Ghost({
+        position: {
+            x: ((Boundary.width * 6 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+            y: ((Boundary.height + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
+        },
+        velocity: {
+            x: 1,
+            y: 0
+        },
+        color: 'red'
+    }),
+    new Ghost({
+        position: {
+            x: ((Boundary.width * 3 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+            y: ((Boundary.height * 5 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
+        },
+        velocity: {
+            x: 1,
+            y: 0
+        },
+        color: 'pink'
+    }),
+    new Ghost({
+        position: {
+            x: ((Boundary.width * 8 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+            y: ((Boundary.height * 3 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
+        },
+        velocity: {
+            x: 1,
+            y: 0
+        },
+        color: 'red'
+    })
+];

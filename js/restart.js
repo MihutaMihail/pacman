@@ -22,8 +22,15 @@ export function restartPlayer() {
 }
 
 // Restart Ghosts
-export function restartGhosts() {
-    getGhosts('one');
+export function restartGhosts(level) {
+    switch(level) {
+        case 1:
+            getGhosts(1);
+            break;
+        case 2:
+            getGhosts(2);
+            break;
+    }
 
     ghosts.forEach(ghost => {
         ghost.velocity.x = 0;

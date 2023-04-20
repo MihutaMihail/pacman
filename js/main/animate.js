@@ -1,5 +1,5 @@
 //
-// Animate
+// Import
 //
 
 import { boundaries, pellets, powerUps, createMap } from '../boundary.js';
@@ -13,6 +13,10 @@ import {
     arrowDownCollisionPlayer, arrowLeftCollisionPlayer, circleCollidesWithRectangle
 } from './collisionMethods.js';
 import { getMap } from '../map.js';
+
+//
+// Variables
+//
 
 export const score = {
     number: 0,
@@ -51,11 +55,17 @@ export const animationId = {
     }
 }
 
+let currentLevel = 1;
+let isNextLevel = false;
 let numPellets = 0;
 let isHalfPellets = false;
 let collisions = [];
 
 setUpGame();
+
+//
+// Animate
+//
 
 export function animate() {
     animationId.setId(requestAnimationFrame(animate));
@@ -68,14 +78,21 @@ export function animate() {
     else if (keys.ArrowDown.pressed && lastKey === 'ArrowDown') arrowDownCollisionPlayer();
     else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') arrowRightCollisionPlayer();
 
-    // win condition
-    if (pellets.length === 0) {
-        // change to level two
-    } else if (pellets.length === Math.floor(numPellets / 2) && !isHalfPellets) {
+    // player wins level
+    if (pellets.length === 60 && !isNextLevel) {
+        isNextLevel = true;
+        currentLevel += 1
+
+        //nextLevel();
+    }
+
+    // increase ghost speed when half pellets
+    if (pellets.length === Math.floor(numPellets / 2) && !isHalfPellets) {
+        isHalfPellets = true;
+        // BUG ---> a ghost may get their speed increase at a later time than other ghosts
         ghosts.forEach(ghost => {
             ghost.speed += 1;
         });
-        isHalfPellets = true;
     }
 
     // collision between ghost and player
@@ -95,9 +112,11 @@ export function animate() {
             } else {
                 // player loses
                 // lostLife();
+                //
                 cancelAnimationFrame(animationId.getId());
                 health.decrement(1);
                 healthEl.innerHTML = health.getHealth();
+                //
             }
         }
     }
@@ -314,23 +333,9 @@ animate();
     }
 }*/
 
-export function restartGame() {
-    // reset health
-    health.setHealth(2);
-    healthEl.innerHTML = health.getHealth();
-
-    restartScore();
-    restartPlayer()
-    restartGhosts();
-    
-    // redrawn map
-    getMap('one');
-    createMap();
-}
-
 function setUpGame() {
     // get ghosts level one
-    getGhosts('one')
+    getGhosts(1)
 
     // get number pellets
     numPellets = pellets.length;
@@ -338,3 +343,29 @@ function setUpGame() {
     // set health counter
     healthEl.innerHTML = health.getHealth();
 }
+
+export function restartGame() {
+    // reset health
+    health.setHealth(2);
+    healthEl.innerHTML = health.getHealth();
+
+    // restart half pellets entry
+    isHalfPellets = false;
+
+    restartScore();
+    restartPlayer();
+    restartGhosts();
+
+    // redrawn map
+    getMap(1);
+    createMap();
+}
+
+// function nextLevel() {
+//     restartPlayer();
+//     restartGhosts();
+    
+//     // redrawn map
+//     getMap(currentLevel);
+//     createMap();
+// }

@@ -7,7 +7,7 @@ import { map, getMap } from './map.js';
 import { Pellet } from './pellet.js';
 import { PowerUp } from './powerUp.js';
 
-getMap('one');
+getMap(1);
 
 export class Boundary {
     static width = 40;
@@ -78,10 +78,12 @@ export function getMapLevel(level) {
 //
 
 export const boundaries = [];
-export const pellets = [];
+export let pellets = [];
 export const powerUps = [];
 
 export function createMap() {
+    pellets = [];
+
     map.forEach((row, i) => {
         row.forEach((symbol, j) => {
             switch (symbol) {

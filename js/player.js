@@ -53,8 +53,8 @@ import { Boundary } from './boundary.js';
 
 export const player = new Player({
     position : {
-        x: ((Boundary.width + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
-        y: (( Boundary.height + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
+        x: ((Boundary.width * 6 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+        y: (( Boundary.height * 5 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
     },
     velocity: {
         x: 0,
