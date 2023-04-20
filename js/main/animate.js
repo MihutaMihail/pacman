@@ -67,8 +67,21 @@ setUpGame();
 // Animate
 //
 
+let msPrev = performance.now()
+const fps = 60
+const msPerFrame = 1000 / fps
+
 export function animate() {
     animationId.setId(requestAnimationFrame(animate));
+
+    const msNow = performance.now()
+    const msPassed = msNow - msPrev
+  
+    // any code below this line should run at 60 fps
+    if (msPassed < msPerFrame) return
+
+    const excessTime = msPassed % msPerFrame
+    msPrev = msNow - excessTime
 
     c.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -79,10 +92,10 @@ export function animate() {
     else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') arrowRightCollisionPlayer();
 
     // player wins level
-    if (pellets.length === 67 && !isNextLevel) {
+    if (pellets.length === 0 && !isNextLevel) {
         isNextLevel = true;
         currentLevel += 1
-        
+
         nextLevel();
     }
 
