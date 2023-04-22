@@ -3,7 +3,6 @@
 //
 
 import { Boundary, centerMap } from '../boundary.js';
-import { c } from '../html.js';
 
 export function circleCollidesWithRectangle({ circle, rectangle }) {
     const collisionMargin = (Boundary.width / 2) - circle.radius - 1;

@@ -40,14 +40,6 @@ const posY = canvasY + c.canvas.height / 2;
 let mapHalfWidth = 0;
 let mapHalfHeight = 0;
 
-export function updateMapHalfValues() {
-    // get half of map width + height
-    mapHalfWidth = (map[0].length / 2) * Boundary.height;
-    mapHalfHeight = (map.length / 2) * Boundary.width;
-}
-
-updateMapHalfValues();
-
 export let centerMap = {
     centerPosX: posX,
     centerPosY: posY,
@@ -56,6 +48,10 @@ export let centerMap = {
 };
 
 export function updateMapCenter() {
+    // get half of map width + height
+    mapHalfWidth = (map[0].length / 2) * Boundary.height;
+    mapHalfHeight = (map.length / 2) * Boundary.width;
+
     centerMap = {
         centerPosX: centerMap.centerPosX,
         centerPosY: centerMap.centerPosY,

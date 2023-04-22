@@ -2,7 +2,7 @@
 // Import
 //
 
-import { boundaries, pellets, powerUps, createMap, updateMapHalfValues, updateMapCenter } from '../boundary.js';
+import { boundaries, pellets, powerUps, createMap, updateMapCenter } from '../boundary.js';
 import { keys, lastKey } from '../keyboardInput.js';
 import { player } from '../player.js';
 import { ghosts, getGhosts } from '../ghost.js';
@@ -101,7 +101,8 @@ export function animate() {
     // increase ghost speed when half pellets
     if (pellets.length === Math.floor(numPellets / 2) && !isHalfPellets) {
         isHalfPellets = true;
-        // BUG ---> a ghost may get their speed increase at a later time than the other ghosts
+        // BUG ---> the speed ONLY updates when the ghost has to choose a direction
+        // that's where we use the ghost.speed to dictate the speed of the ghost to go in a certain direction
         ghosts.forEach(ghost => {
             ghost.speed += 1;
         });
@@ -361,10 +362,8 @@ export function restartGame() {
     health.setHealth(2);
     healthEl.innerHTML = health.getHealth();
 
-    // reset half pellets entry
+    // reset variables
     isHalfPellets = false;
-
-    // reset level
     currentLevel = 1;
 
     restartScore();
@@ -373,24 +372,22 @@ export function restartGame() {
 
     // redrawn map
     getMap(1);
+    updateMapCenter();
     createMap();
 }
 
 function nextLevel() {
-    // restart half pellets entry
-    isHalfPellets = false;
-
     // redrawn map
     getMap(currentLevel);
-    updateMapHalfValues();
     updateMapCenter();
     createMap();
 
+    // set up variables for next level
+    isHalfPellets = false;
+    numPellets = pellets.length;
+
     restartPlayer();
     restartGhosts(currentLevel);
-
-    // get the next level num pellets
-    numPellets = pellets.length;
 
     isNextLevel = false;
 }

@@ -44,9 +44,11 @@ class Ghost {
 export function getGhosts(level) {
     switch(level) {
         case 1:
+            ghosts = [];
             ghosts = [...ghostsLevelOne];
             break;
         case 2:
+            ghosts = [];
             ghosts = [...ghostsLevelTwo];
             break;
     }
@@ -88,8 +90,8 @@ const ghostsLevelOne = [
 const ghostsLevelTwo = [
     new Ghost({
         position: {
-            x: ((Boundary.width * 6 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
-            y: ((Boundary.height + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
+            x: ((Boundary.width * 7 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+            y: ((Boundary.height * 2 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
         },
         velocity: {
             x: 1,
@@ -110,13 +112,24 @@ const ghostsLevelTwo = [
     }),
     new Ghost({
         position: {
-            x: ((Boundary.width * 8 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
-            y: ((Boundary.height * 3 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
+            x: ((Boundary.width * 9 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+            y: ((Boundary.height * 10 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
         },
         velocity: {
             x: 1,
             y: 0
         },
         color: 'orange'
+    }),
+    new Ghost({
+        position: {
+            x: ((Boundary.width * -2 + Boundary.width / 2) + centerMap.centerPosX) - centerMap.halfWidth,
+            y: ((Boundary.height * 12 + Boundary.height / 2) + centerMap.centerPosY) - centerMap.halfHeight
+        },
+        velocity: {
+            x: 1,
+            y: 0
+        },
+        color: 'green'
     })
 ];

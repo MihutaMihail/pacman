@@ -39,6 +39,8 @@ export function restartGhosts(level) {
         ghost.prevCollisions = [];
         ghost.scared = false;
         ghost.update(true);
+        // add a new property to indicate in which direction you want the ghost to start and do a switch
+        // if you want to switch the direction of which the ghost is going at the start of the round
         ghost.velocity.x = ghost.speed;
     })
 }
