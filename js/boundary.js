@@ -37,16 +37,34 @@ const canvasY = canvasRect.top;
 const posX = canvasX + c.canvas.width / 2;
 const posY = canvasY + c.canvas.height / 2;
 
-// get half of map width + height
-const mapHalfWidth = (map[0].length / 2) * Boundary.height;
-const mapHalfHeight = (map.length / 2) * Boundary.width;
+let mapHalfWidth = 0;
+let mapHalfHeight = 0;
 
-export const centerMap = {
+export function updateMapHalfValues() {
+    // get half of map width + height
+    mapHalfWidth = (map[0].length / 2) * Boundary.height;
+    mapHalfHeight = (map.length / 2) * Boundary.width;
+}
+
+updateMapHalfValues();
+
+export let centerMap = {
     centerPosX: posX,
     centerPosY: posY,
-    halfHeight: mapHalfHeight,
-    halfWidth: mapHalfWidth
+    halfHeight: 0,
+    halfWidth: 0
+};
+
+export function updateMapCenter() {
+    centerMap = {
+        centerPosX: centerMap.centerPosX,
+        centerPosY: centerMap.centerPosY,
+        halfWidth: mapHalfWidth,
+        halfHeight: mapHalfHeight
+    };
 }
+
+updateMapCenter();
 
 //
 // Image Source
@@ -63,7 +81,7 @@ function createImage(src) {
 //
 
 export function getMapLevel(level) {
-    switch(level) {
+    switch (level) {
         case 'one':
             changeMap(level)
             break;

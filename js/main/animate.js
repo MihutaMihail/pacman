@@ -2,7 +2,7 @@
 // Import
 //
 
-import { boundaries, pellets, powerUps, createMap } from '../boundary.js';
+import { boundaries, pellets, powerUps, createMap, updateMapHalfValues, updateMapCenter } from '../boundary.js';
 import { keys, lastKey } from '../keyboardInput.js';
 import { player } from '../player.js';
 import { ghosts, getGhosts } from '../ghost.js';
@@ -67,17 +67,16 @@ setUpGame();
 // Animate
 //
 
-let msPrev = performance.now()
 const fps = 60
 const msPerFrame = 1000 / fps
+let msPrev = performance.now()
 
 export function animate() {
     animationId.setId(requestAnimationFrame(animate));
 
     const msNow = performance.now()
     const msPassed = msNow - msPrev
-  
-    // any code below this line should run at 60 fps
+
     if (msPassed < msPerFrame) return
 
     const excessTime = msPassed % msPerFrame
@@ -102,7 +101,7 @@ export function animate() {
     // increase ghost speed when half pellets
     if (pellets.length === Math.floor(numPellets / 2) && !isHalfPellets) {
         isHalfPellets = true;
-        // BUG ---> a ghost may get their speed increase at a later time than other ghosts
+        // BUG ---> a ghost may get their speed increase at a later time than the other ghosts
         ghosts.forEach(ghost => {
             ghost.speed += 1;
         });
@@ -383,10 +382,15 @@ function nextLevel() {
 
     // redrawn map
     getMap(currentLevel);
+    updateMapHalfValues();
+    updateMapCenter();
     createMap();
 
     restartPlayer();
     restartGhosts(currentLevel);
+
+    // get the next level num pellets
+    numPellets = pellets.length;
 
     isNextLevel = false;
 }

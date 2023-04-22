@@ -18,7 +18,22 @@
 **/// animate() x 2 \\\**
 
     Be careful with calling the method 'animate()' because if you call it while 'animate()' is already running, it will speed up the game. 
-    If you have previously cancelled the 'requestAnimationFrame()' and then call 'animate()' it will work fine
+    If you have previously cancelled the 'requestAnimationFrame()' with cancelAnimationFrame() and then call 'animate()' it will work fine
+
+**/// cap fps to 60 \\\**
+
+    First we define the desired fps and divide by 1000 to get the ms value. With 60 fps we get 16.67 ms between each frame.
+    Next, we get the window.performance.now() (current time in ms) and put in in a variable. In our animate loop, we get
+    the performance.now() again and what we'll do is substract the msNow (located in the animate() loop) with the 
+    msPrev (executed once before the animate() loop) to get the msPassed. We then compare this value to our 16.67 ms (ms per frame)
+    If the time passed is inferior then we don't want to execute the animate() loop because it's not yet time to animate() the
+    next frame. Once it's time we set our msPrev to the current time and repeat. We also calculate the excessTime to substract
+    from the current ms. 
+
+    EXAMPLE: 
+    If a frame is shown every 8 ms. Then our 2nd frame will be after 16ms but this value is still smaller than 16.67 (60 fps)
+    The next time we'll show the next frame will be at 24ms but this is not correct because we're meant to show a frame every 16.67 ms.
+    We thus need to get the excessTime and substract it.
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
