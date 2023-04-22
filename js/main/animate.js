@@ -31,18 +31,18 @@ export const score = {
     }
 };
 
-export const health = {
-    numHealth: 2,
-    decrement(value) {
-        this.numHealth -= value;
-    },
-    getHealth() {
-        return this.numHealth;
-    },
-    setHealth(health) {
-        this.numHealth = health;
-    }
-};
+let lives = 3;
+let pacmanImages = [];
+
+function pushPacmanImages() {
+    for (let i = 0; i < lives; i++) {
+        pacmanImages.push('<img src="../assets/public/pacmanCharacter.png" alt="Pacman">');
+      }
+}
+
+pushPacmanImages();
+
+healthEl.innerHTML = pacmanImages.join("");
 
 export const animationId = {
     id: 0,
@@ -125,11 +125,10 @@ export function animate() {
             } else {
                 // player loses
                 // lostLife();
-                //
-                cancelAnimationFrame(animationId.getId());
-                health.decrement(1);
-                healthEl.innerHTML = health.getHealth();
-                //
+                lives--;
+                pacmanImages.pop();
+                healthEl.innerHTML = pacmanImages.join("");
+                cancelAnimationFrame(animationId.getId())
             }
         }
     }
@@ -347,20 +346,16 @@ animate();
 }*/
 
 function setUpGame() {
-    // get ghosts level one
     getGhosts(1)
-
-    // get number pellets
     numPellets = pellets.length;
-
-    // set health counter
-    healthEl.innerHTML = health.getHealth();
 }
 
 export function restartGame() {
     // reset health
-    health.setHealth(2);
-    healthEl.innerHTML = health.getHealth();
+    lives = 3;
+    pacmanImages = [];
+    pushPacmanImages();
+    healthEl.innerHTML = pacmanImages.join("");
 
     // reset variables
     isHalfPellets = false;

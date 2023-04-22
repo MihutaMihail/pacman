@@ -1,18 +1,25 @@
 body {
     margin: 0;
     background-color: black;
-}       
-
-#score {
-    font-size: 25px;
-    color: white;
-    font-family: "Press Start 2P";
 }
 
-#health {
-    font-size: 25px;
+#score {
+    font-size: 30px;
     color: white;
     font-family: "Press Start 2P";
+    text-align: center;
+}
+
+#pacmanHealth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pacmanHealth-container img {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
 }
 
 #canvasGame {
@@ -34,14 +41,14 @@ body {
     border-radius: 5px;
     display: none;
 }
-  
+
 #pause-menu h2 {
     margin-top: 0;
     text-align: center;
     color: white;
     font-size: 35px;
 }
-  
+
 #pause-menu button {
     margin: 10px;
 }

@@ -18,7 +18,7 @@ export let scoreEl = document.querySelector('#score');
 // Health element
 //
 
-export let healthEl = document.querySelector('#health');
+export let healthEl = document.querySelector('#pacmanHealth-container');
 
 //
 // Sound elements
