@@ -2,7 +2,7 @@
 // Ghost Class
 //
 
-import { c } from './html.js';
+import { c } from './htmlGame.js';
 
 class Ghost {
     constructor({ position, velocity, color }) {

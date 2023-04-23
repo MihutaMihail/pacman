@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <title>PACMAN</title>
     <link rel="stylesheet" href="./css/game.css">
 
     <script type="module" src="js/boundary.js"></script>
     <script type="module" src="js/map.js"></script>
     <script type="module" src="js/keyboardInput.js"></script>
     <script type="module" src="js/player.js"></script>
-    <script type="module" src="js/html.js"></script>
+    <script type="module" src="js/htmlGame.js"></script>
     <script type="module" src="js/main/collisionMethods.js"></script>
     <script type="module" src="js/main/animate.js"></script>
     <script type="module" src="js/pauseMenu.js"></script>
 </head>
+
 <body>
-    <p id="score">10</p>
+    <p id="score">0</p>
     <div id="pacmanHealth-container"></div>
 
     <audio id="musicBeginning" src="./assets/sounds/pacman_beginning.wav"></audio>
@@ -25,11 +28,18 @@
 
     <canvas id="canvasGame"></canvas>
 
-    <div id="pause-menu" style="display:none">
+    <div id="pause-menu" style="display: none">
         <h2>Pause Menu</h2>
         <button class="button" id="resume-button">Resume</button>
         <button class="button" id="restart-button">Restart</button>
         <button class="button" id="main-menu-button">Main Menu</button>
     </div>
+
+    <div id="playerNameDialog" style="display: none;">
+        <label for="playerNameInput">Enter your name</label>
+        <input type="text" autocomplete="off" id="playerNameInput">
+        <button class="button" id="playerNameSubmit">Submit</button>
+    </div>
 </body>
+
 </html>

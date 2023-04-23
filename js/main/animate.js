@@ -6,7 +6,8 @@ import { boundaries, pellets, powerUps, createMap, updateMapCenter } from '../bo
 import { keys, lastKey } from '../keyboardInput.js';
 import { player } from '../player.js';
 import { ghosts, getGhosts } from '../ghost.js';
-import { canvas, c, scoreEl, healthEl, musicBeginningEl, soundChompEl, soundDeathEl, soundEatFruitEl, soundEatGhostEl } from '../html.js';
+import { showScoreMenu } from '../highScores/scoreDialog.js';
+import { canvas, c, scoreEl, healthEl, musicBeginningEl, soundChompEl, soundDeathEl, soundEatFruitEl, soundEatGhostEl } from '../htmlGame.js';
 import { restartScore, restartGhosts, restartPlayer } from '../restart.js'
 import {
     arrowUpCollisionPlayer, arrowRightCollisionPlayer,
@@ -37,7 +38,7 @@ let pacmanImages = [];
 function pushPacmanImages() {
     for (let i = 0; i < lives; i++) {
         pacmanImages.push('<img src="../assets/public/pacmanCharacter.png" alt="Pacman">');
-      }
+    }
 }
 
 pushPacmanImages();
@@ -55,7 +56,7 @@ export const animationId = {
     }
 }
 
-let currentLevel = 1;
+export let currentLevel = 1;
 let isNextLevel = false;
 let numPellets = 0;
 let isHalfPellets = false;
@@ -124,11 +125,13 @@ export function animate() {
                 scoreEl.innerHTML = score.getNumber();
             } else {
                 // player loses
-                // lostLife();
+                playerDeath();
                 lives--;
-                pacmanImages.pop();
-                healthEl.innerHTML = pacmanImages.join("");
-                cancelAnimationFrame(animationId.getId())
+
+                if (lives === 0) {
+                    //restartGame();
+                    showScoreMenu();
+                }
             }
         }
     }
@@ -320,34 +323,33 @@ export function animate() {
 
 animate();
 
-// this function will be called every time that the player loses a life / restart / lost game
-// function newRound() {
-//     cancelAnimationFrame(animationId);
-
-//     // play sound beginning
-//     musicBeginningEl.play();
-
-//     setTimeout(() => {
-//         animate();
-//     }, musicBeginningEl.duration * 1000)
-// }
-
-/*function lostLife() {
-    restartPlayer();
-    restartGhosts();
-
-    // remove a life
-    lives -= 1;
-    livesEl.innerHTML = lives;
-
-    if (lives == 0) {
-        restartGameLevelOne();
-    }
-}*/
-
 function setUpGame() {
     getGhosts(1)
     numPellets = pellets.length;
+}
+
+function playerDeath() {
+    pacmanImages.pop();
+    healthEl.innerHTML = pacmanImages.join("");
+
+    restartPlayer();
+    restartGhosts();
+}
+
+function nextLevel() {
+    // redrawn map
+    getMap(currentLevel);
+    updateMapCenter();
+    createMap();
+
+    // set up variables for next level
+    isHalfPellets = false;
+    numPellets = pellets.length;
+
+    restartPlayer();
+    restartGhosts(currentLevel);
+
+    isNextLevel = false;
 }
 
 export function restartGame() {
@@ -369,20 +371,4 @@ export function restartGame() {
     getMap(1);
     updateMapCenter();
     createMap();
-}
-
-function nextLevel() {
-    // redrawn map
-    getMap(currentLevel);
-    updateMapCenter();
-    createMap();
-
-    // set up variables for next level
-    isHalfPellets = false;
-    numPellets = pellets.length;
-
-    restartPlayer();
-    restartGhosts(currentLevel);
-
-    isNextLevel = false;
 }

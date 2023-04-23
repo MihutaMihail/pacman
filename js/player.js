@@ -2,7 +2,7 @@
 // Player Class
 //
 
-import { c } from './html.js';
+import { c } from './htmlGame.js';
 import { centerMap } from './boundary.js';
 
 class Player {

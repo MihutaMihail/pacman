@@ -30,6 +30,3 @@ export let soundDeathEl = document.querySelector('#soundDeath');
 export let soundEatFruitEl = document.querySelector('#soundEatFruit');
 export let soundEatGhostEl = document.querySelector('#soundEatGhost');
 export let soundIntermissionEl = document.querySelector('#soundIntermission');
-
-
- 

@@ -2,7 +2,7 @@
 // PowerUp Class
 //
 
-import { c } from './html.js';
+import { c } from './htmlGame.js';
 
 export class PowerUp {
     constructor({position}) {

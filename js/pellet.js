@@ -2,7 +2,7 @@
 // Pellet Class
 //
 
-import { c } from './html.js';
+import { c } from './htmlGame.js';
 
 export class Pellet {
     constructor({position}) {

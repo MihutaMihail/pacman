@@ -3,7 +3,7 @@
 // 
 
 import { score } from './main/animate.js';
-import { scoreEl } from './html.js';
+import { scoreEl } from './htmlGame.js';
 import { player } from './player.js'
 import { ghosts, getGhosts } from './ghost.js';
 

@@ -2,7 +2,7 @@
 // Boundary Class
 //
 
-import { c } from './html.js';
+import { c } from './htmlGame.js';
 import { map, getMap } from './map.js';
 import { Pellet } from './pellet.js';
 import { PowerUp } from './powerUp.js';
