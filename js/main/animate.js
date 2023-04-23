@@ -103,7 +103,7 @@ export function animate() {
     else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') arrowRightCollisionPlayer();
 
     // player wins level
-    if (pellets.length === 0 && !isNextLevel) {
+    if (pellets.length === 60 && !isNextLevel) {
         isNextLevel = true;
         currentLevel += 1
 
@@ -112,6 +112,7 @@ export function animate() {
             showScoreMenu();
         } else {
             nextLevel();
+            beginRound();
         }
     }
 
@@ -347,6 +348,10 @@ export function animate() {
 
 animate();
 
+setTimeout(() => {
+    beginRound();
+}, 50)
+
 function setUpGame() {
     getGhosts(1)
     numPellets = pellets.length;
@@ -389,7 +394,27 @@ export function restartGame() {
     createMap();
 
     animationId.setId(requestAnimationFrame(animate));
+    setTimeout(() => {
+        beginRound();
+    }, 33)
+
+
 }
+
+function beginRound() {
+    noPauseMenu.setBoolean(true);
+
+    cancelAnimationFrame(animationId.getId());
+
+    musicBeginningEl.play();
+
+    setTimeout(() => {
+        animationId.setId(requestAnimationFrame(animate));
+
+        noPauseMenu.setBoolean(false);
+    }, musicBeginningEl.duration * 1000)
+}
+
 
 function eatGhost() {
     cancelAnimationFrame(animationId.getId());
