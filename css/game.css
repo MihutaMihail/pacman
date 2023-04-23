@@ -46,12 +46,20 @@ body {
     margin: 0 auto;
 }
 
+/**/
+/**/ /* Score */ /**/
+/**/
+
 #score {
     font-size: 30px;
     color: white;
     font-family: "Press Start 2P";
     text-align: center;
 }
+
+/**/
+/**/ /* Pacman lives */ /**/
+/**/
 
 #pacmanHealth-container {
     display: flex;
@@ -64,6 +72,10 @@ body {
     height: 50px;
     margin: 5px;
 }
+
+/**/
+/**/ /* Pause Menu */ /**/
+/**/
 
 #pause-menu {
     position: absolute;

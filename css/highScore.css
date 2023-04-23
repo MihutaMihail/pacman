@@ -6,6 +6,10 @@ body {
     align-items: center;
 }
 
+/**/
+/**/ /* Both tables (high score & all scores list) */ /**/
+/**/
+
 table {
     font-family: sans-serif;
     border-collapse: collapse;

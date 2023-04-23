@@ -8,10 +8,18 @@ body {
     height: 100vh; /* viewport height */
 }
 
+/**/
+/**/ /* Pacman Logo */ /**/
+/**/
+
 #pacman-logo {
     display: block; /* makes the image a block element, which can be centered */
     margin: 0 auto; /* centers the image horizontally */
 }
+
+/**/
+/**/ /* Play & Highscore Buttons */ /**/
+/**/
 
 .button-container {
     text-align: center;
