@@ -13,6 +13,7 @@ document.addEventListener('keydown', function ({ key }) {
     }
 });
 
+// Shows pause menu
 function showPauseMenu() {
     document.getElementById('pause-menu').style.display = 'block';
 }
@@ -25,6 +26,7 @@ document.getElementById('resume-button').addEventListener('click', function () {
     resumeGame();
 });
 
+// Resumes game
 function resumeGame() {
     hidePauseMenu();
 
@@ -43,7 +45,7 @@ document.querySelector('#restart-button').addEventListener('click', function () 
     restartGameButton();
 });
 
-
+// Restart game
 function restartGameButton() {
     resumeGame();
     restartGame();
@@ -57,6 +59,7 @@ document.querySelector('#main-menu-button').addEventListener('click', function (
     returnMainMenu();
 });
 
+// Return to main menu
 function returnMainMenu() {
     window.open('index.html', '_self');
 }  

@@ -7,13 +7,13 @@ import { scoreEl } from './htmlGame.js';
 import { player } from './player.js'
 import { ghosts, getGhosts } from './ghost.js';
 
-// Restart Score
+// Set score to 0
 export function restartScore() {
     score.setNumber(0);
     scoreEl.innerHTML = score.getNumber();
 }
 
-// Restart Player
+// Set player position and velocity to default values
 export function restartPlayer() {
     player.velocity.x = 0;
     player.velocity.y = 0;
@@ -21,7 +21,7 @@ export function restartPlayer() {
     player.update(true);
 }
 
-// Restart Ghosts
+// Set player position and velocity to default values (depending on which level you give it)
 export function restartGhosts(level) {
     switch(level) {
         case 1:

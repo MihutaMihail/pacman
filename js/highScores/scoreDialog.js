@@ -24,7 +24,7 @@ document.querySelector('#playerNameSubmit').addEventListener('click', function (
     }
 });
 
-// show score menu
+// Show score menu
 export function showScoreMenu() {
     noPauseMenu.setBoolean(true);
     document.getElementById('playerNameDialog').style.display = 'block';

@@ -6,6 +6,7 @@ export function setItemPlayerScore() {
     setAllScoresList();
 }
 
+// Stocks player's score in local storage ---> highScore Key
 function setHighScore() {
     getHighScore();
 
@@ -18,6 +19,7 @@ function setHighScore() {
     }
 }
 
+// Stocks player's score in local storage ---> allScoresList Key
 function setAllScoresList() {
     getAllScoresList();
 

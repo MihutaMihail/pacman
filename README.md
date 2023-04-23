@@ -12,8 +12,8 @@ https://ytrack.learn.ynov.com/git/mmihail/Projet-JS-Paris
 
 → A pacman tutorial + assets for the map  
 https://www.youtube.com/watch?v=5IMXpp3rohQ
-(I didn't want to just copy the code from the video so I wrote a few comments + made a 'help.txt' that describes how)
-(a few functions / lines of codes work to understand a little better)
+(I didn't want to just copy the code from the video so I wrote some comments + made a 'help.txt' that describes how)
+(a few functions / lines of codes work to understand a little better how it works)
 
 → Github on how to set up tiles + move character + collisions  
 https://github.com/mozdevs/gamedev-js-tiles

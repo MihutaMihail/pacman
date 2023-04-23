@@ -11,7 +11,7 @@ export function getAllScoresList() {
     allScoresList = JSON.parse(localStorage.getItem("allScoresList")) || [];
 }
 
-// shows high score
+// Shows high score on html page
 function getItemHighScore() {
     const highScore = JSON.parse(localStorage.getItem('highScore'));
 
@@ -22,7 +22,7 @@ function getItemHighScore() {
     }
 }
 
-// shows all scores list
+// Shows all scores list on html page
 function getItemAllScoresList() {
     const allScoresList = JSON.parse(localStorage.getItem('allScoresList'));
 

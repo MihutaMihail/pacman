@@ -4,6 +4,7 @@
 
 import { Boundary, centerMap } from '../boundary.js';
 
+// Returns a boolean value indicating if a circular shape has collided with a rectangular shape
 export function circleCollidesWithRectangle({ circle, rectangle }) {
     const collisionMargin = (Boundary.width / 2) - circle.radius - 1;
 

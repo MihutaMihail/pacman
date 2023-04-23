@@ -19,10 +19,14 @@ import { getMap } from '../map.js';
 // Variables
 //
 
+// Score
 export const score = {
     number: 0,
     increment(value) {
         this.number += value;
+    },
+    decrement(value) {
+        this.number -= value;
     },
     getNumber() {
         return this.number;
@@ -32,6 +36,7 @@ export const score = {
     }
 };
 
+// Lives
 let lives = 3;
 let pacmanImages = [];
 
@@ -45,6 +50,7 @@ pushPacmanImages();
 
 healthEl.innerHTML = pacmanImages.join("");
 
+// Animation Id
 export const animationId = {
     id: 0,
     getId() {
@@ -56,6 +62,7 @@ export const animationId = {
     }
 }
 
+// No Pause Menu
 export let noPauseMenu = {
     boolean: false,
     getBoolean() {
@@ -66,6 +73,7 @@ export let noPauseMenu = {
     }
 }
 
+// Other
 export let currentLevel = 1;
 let maxLevel = 2;
 let isNextLevel = false;
@@ -103,7 +111,7 @@ export function animate() {
     else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') arrowRightCollisionPlayer();
 
     // player wins level
-    if (pellets.length === 60 && !isNextLevel) {
+    if (pellets.length === 0 && !isNextLevel) {
         isNextLevel = true;
         currentLevel += 1
 
@@ -144,8 +152,11 @@ export function animate() {
                 score.increment(200);
                 scoreEl.innerHTML = score.getNumber();
             } else {
-                // player loses
+                // player collides with ghosts (loses)
                 lives--;
+
+                score.decrement(100);
+                scoreEl.innerHTML = score.getNumber();
 
                 if (lives === 0) {
                     playerDeath(true);
@@ -348,15 +359,18 @@ export function animate() {
 
 animate();
 
+// Call the beginRound() function after a short amount of time to wait for the map to load
 setTimeout(() => {
     beginRound();
 }, 50)
 
+// Sets up a few things before starting the game
 function setUpGame() {
     getGhosts(1)
     numPellets = pellets.length;
 }
 
+// Change ghosts, player, map for the next level
 function nextLevel() {
     // redrawn map
     getMap(currentLevel);
@@ -373,16 +387,13 @@ function nextLevel() {
     isNextLevel = false;
 }
 
+// Restart all things needed like ghosts, player, map, variables
 export function restartGame() {
     // reset health
     lives = 3;
     pacmanImages = [];
     pushPacmanImages();
     healthEl.innerHTML = pacmanImages.join("");
-
-    // reset variables
-    isHalfPellets = false;
-    currentLevel = 1;
 
     restartScore();
     restartPlayer();
@@ -393,14 +404,18 @@ export function restartGame() {
     updateMapCenter();
     createMap();
 
+    // reset variables
+    isHalfPellets = false;
+    currentLevel = 1;
+    numPellets = pellets.length;
+
     animationId.setId(requestAnimationFrame(animate));
     setTimeout(() => {
         beginRound();
     }, 33)
-
-
 }
 
+// Cancels the animation frame and plays the beginning music
 function beginRound() {
     noPauseMenu.setBoolean(true);
 
@@ -415,7 +430,7 @@ function beginRound() {
     }, musicBeginningEl.duration * 1000)
 }
 
-
+// Stops the game and resumes afterwards and plays a sound
 function eatGhost() {
     cancelAnimationFrame(animationId.getId());
 
@@ -426,6 +441,7 @@ function eatGhost() {
     }, soundEatGhostEl.duration * 1000)
 }
 
+// Stops the game and resumes afterwards and plays a sound
 function playerDeath(playerDead) {
     cancelAnimationFrame(animationId.getId());
 

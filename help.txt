@@ -1,3 +1,6 @@
+→ Repertory Gitea  
+https://ytrack.learn.ynov.com/git/mmihail/Projet-JS-Paris
+
 //
 // General
 //
@@ -14,6 +17,14 @@
     want to be executed, will be executed because this file will have priority over any other files. In addition, when exporting 
     a value, it will export a reference to the actual value. This means that if the value is modified after exporting it, it 
     will still have the modified value
+
+**/// ghosts movement \\\**
+
+    You need two arrays. One arrays with the current collisions (same thing as the player collision detection) and another array with
+    the previous collisions (ghost.prevCollisions). You then compare the two arrays to see which direction (that we are colliding with)
+    is not there anymore. If the collisions array doesn't include (for example) the direction 'down', it means that a new path has opened.
+    We then add this direction to another array and also the direction that the ghosts is going. We then choose a random direction
+    (random number generator) and depending on which direction has been chosen (do a switch case), set speed in that direction.
 
 **/// animate() x 2 \\\**
 
@@ -84,7 +95,7 @@
 
 **/// c.canvas.getBoundingClientRect() \\\**
 
-    This functions will return a DOMRect object which has the following properties : 'top', 'left', 'right', 'bottom', 'width' and 'height'.
+    This function will return a DOMRect object which has the following properties : 'top', 'left', 'right', 'bottom', 'width' and 'height'.
     In this case, we use the properties 'left' and 'top' because we want to get the position of the canvas on the screen to then calculate
     the position of the game boundaries.
 
