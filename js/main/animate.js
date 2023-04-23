@@ -137,15 +137,20 @@ export function animate() {
         ) {
             if (ghost.scared) {
                 ghosts.splice(i, 1);
+
+                eatGhost();
+
                 score.increment(200);
                 scoreEl.innerHTML = score.getNumber();
             } else {
                 // player loses
-                playerDeath();
                 lives--;
 
                 if (lives === 0) {
+                    playerDeath(true);
                     showScoreMenu();
+                } else {
+                    playerDeath(false);
                 }
             }
         }
@@ -163,6 +168,8 @@ export function animate() {
             powerUp.radius + player.radius
         ) {
             powerUps.splice(i, 1);
+
+            soundEatFruitEl.play();
 
             // make ghosts scared
             ghosts.forEach(ghost => {
@@ -189,6 +196,8 @@ export function animate() {
             pellet.radius + player.radius
         ) {
             pellets.splice(i, 1);
+
+            soundChompEl.play();
 
             score.increment(10);
             scoreEl.innerHTML = score.getNumber();
@@ -343,14 +352,6 @@ function setUpGame() {
     numPellets = pellets.length;
 }
 
-function playerDeath() {
-    pacmanImages.pop();
-    healthEl.innerHTML = pacmanImages.join("");
-
-    restartPlayer();
-    restartGhosts();
-}
-
 function nextLevel() {
     // redrawn map
     getMap(currentLevel);
@@ -388,4 +389,32 @@ export function restartGame() {
     createMap();
 
     animationId.setId(requestAnimationFrame(animate));
+}
+
+function eatGhost() {
+    cancelAnimationFrame(animationId.getId());
+
+    soundEatGhostEl.play();
+
+    setTimeout(() => {
+        animationId.setId(requestAnimationFrame(animate));
+    }, soundEatGhostEl.duration * 1000)
+}
+
+function playerDeath(playerDead) {
+    cancelAnimationFrame(animationId.getId());
+
+    soundDeathEl.play();
+
+    if (!playerDead) {
+        setTimeout(() => {
+            pacmanImages.pop();
+            healthEl.innerHTML = pacmanImages.join("");
+
+            restartPlayer();
+            restartGhosts();
+
+            animationId.setId(requestAnimationFrame(animate));
+        }, soundDeathEl.duration * 1000)
+    }
 }
