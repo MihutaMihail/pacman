@@ -23,7 +23,7 @@ function setAllScoresList() {
 
     allScoresList.push(playerScore);
 
-    if (allScoresList.length > 10) {
+    if (allScoresList.length > 8) {
         allScoresList.shift();
     }
 

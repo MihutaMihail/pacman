@@ -1,4 +1,4 @@
-import { animate, animationId, restartGame } from './main/animate.js';
+import { animate, animationId, restartGame, noPauseMenu } from './main/animate.js';
 
 //
 // Show Pause Menu
@@ -6,8 +6,10 @@ import { animate, animationId, restartGame } from './main/animate.js';
 
 document.addEventListener('keydown', function ({ key }) {
     if (key == 'Escape') {
-        showPauseMenu();
-        cancelAnimationFrame(animationId.getId());
+        if (!noPauseMenu.getBoolean()) {
+            showPauseMenu();
+            cancelAnimationFrame(animationId.getId());
+        }
     }
 });
 

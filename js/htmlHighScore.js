@@ -2,10 +2,8 @@
 // Scores lists
 //
 
-export let highScoreListEl = document.querySelector('#highest-score-list');
-export let allScoresListEl = document.querySelector('#all-scores-list');
+export const highScoreNameEl = document.querySelector('#highScoreName');
+export const highScoreScoreEl = document.querySelector('#highScoreScore');
+export const highScoreLevelEl = document.querySelector('#highScoreLevel');
 
-//
-// HighScore button (index.html)
-//
-
+export const allScoresTableEl = document.querySelector('#allScoresTable');

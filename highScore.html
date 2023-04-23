@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>PACMAN</title>
     <link rel="stylesheet" href="./css/highScore.css">
@@ -7,13 +8,39 @@
     <script type="module" src="./js/htmlHighScore.js"></script>
     <script type="module" src="./js/highScores/getLocalStorage.js"></script>
 </head>
+
 <body>
 
     <h2>Highest Score</h2>
-    <ul id="highest-score-list"></ul>
+    <table id="highScoreTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="highScoreName"></td>
+                <td id="highScoreScore"></td>
+                <td id="highScoreLevel"></td>
+            </tr>
+        </tbody>
+    </table>
 
     <h2>All Scores</h2>
-    <ul id="all-scores-list"></ul>
+    <table id="allScoresTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Level</th>
+            </tr>
+        </thead>
+        <tbody id="allScoresList"></tbody>
+    </table>
 
 </body>
+
 </html>

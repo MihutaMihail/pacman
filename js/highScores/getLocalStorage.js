@@ -1,4 +1,4 @@
-import { highScoreListEl, allScoresListEl } from '../htmlHighScore.js'
+import { highScoreNameEl, highScoreScoreEl, highScoreLevelEl, allScoresTableEl } from '../htmlHighScore.js'
 
 export let highScore = {};
 export let allScoresList = [];
@@ -15,17 +15,10 @@ export function getAllScoresList() {
 function getItemHighScore() {
     const highScore = JSON.parse(localStorage.getItem('highScore'));
 
-    if (highScoreListEl && highScore) {
-        highScoreListEl.innerHTML = '';
-
-        const highestScoreItem = document.createElement('li');
-        highestScoreItem.textContent = highScore.namePlayer + highScore.scorePlayer + highScore.levelPlayer;
-        highScoreListEl.appendChild(highestScoreItem);
-
-    } else if (highScoreListEl) {
-        const highestScoreItem = document.createElement('li');
-        highestScoreItem.textContent = 'No high score yet';
-        highScoreListEl.appendChild(highestScoreItem);
+    if (highScoreNameEl && highScore) {
+        highScoreNameEl.textContent = highScore.namePlayer;
+        highScoreScoreEl.textContent = highScore.scorePlayer;
+        highScoreLevelEl.textContent = highScore.levelPlayer;
     }
 }
 
@@ -33,20 +26,24 @@ function getItemHighScore() {
 function getItemAllScoresList() {
     const allScoresList = JSON.parse(localStorage.getItem('allScoresList'));
 
-    if (allScoresListEl && allScoresList) {
-
-        allScoresListEl.innerHTML = '';
+    if (allScoresTableEl && allScoresList) {
 
         for (let i = 0; i < allScoresList.length; i++) {
-            const allScoreItem = document.createElement('li');
-            allScoreItem.textContent = allScoresList[i].namePlayer + allScoresList[i].scorePlayer + allScoresList[i].levelPlayer;
-            allScoresListEl.appendChild(allScoreItem);
-        }
-
-    } else if (allScoresListEl) {
-        const allScoreItem = document.createElement('li');
-        allScoreItem.textContent = 'No scores yet';
-        allScoresListEl.appendChild(allScoreItem);
+            const allScoreItem = document.createElement('tr');
+            const allScoreName = document.createElement('td');
+            const allScoreScore = document.createElement('td');
+            const allScoreLevel = document.createElement('td');
+      
+            allScoreName.textContent = allScoresList[i].namePlayer;
+            allScoreScore.textContent = allScoresList[i].scorePlayer;
+            allScoreLevel.textContent = allScoresList[i].levelPlayer;
+      
+            allScoreItem.appendChild(allScoreName);
+            allScoreItem.appendChild(allScoreScore);
+            allScoreItem.appendChild(allScoreLevel);
+      
+            allScoresTableEl.appendChild(allScoreItem);
+          }
     }
 }
 

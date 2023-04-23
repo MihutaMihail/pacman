@@ -56,7 +56,18 @@ export const animationId = {
     }
 }
 
+export let noPauseMenu = {
+    boolean: false,
+    getBoolean() {
+        return this.boolean;
+    },
+    setBoolean(boolean) {
+        this.boolean = boolean;
+    }
+}
+
 export let currentLevel = 1;
+let maxLevel = 2;
 let isNextLevel = false;
 let numPellets = 0;
 let isHalfPellets = false;
@@ -96,7 +107,12 @@ export function animate() {
         isNextLevel = true;
         currentLevel += 1
 
-        nextLevel();
+        if (currentLevel > maxLevel) {
+            currentLevel--;
+            showScoreMenu();
+        } else {
+            nextLevel();
+        }
     }
 
     // increase ghost speed when half pellets
@@ -129,7 +145,6 @@ export function animate() {
                 lives--;
 
                 if (lives === 0) {
-                    //restartGame();
                     showScoreMenu();
                 }
             }
@@ -371,4 +386,6 @@ export function restartGame() {
     getMap(1);
     updateMapCenter();
     createMap();
+
+    animationId.setId(requestAnimationFrame(animate));
 }

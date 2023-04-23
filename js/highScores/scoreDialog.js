@@ -1,4 +1,4 @@
-import { score, currentLevel, animationId } from '../main/animate.js';
+import { score, currentLevel, animationId, restartGame, noPauseMenu} from '../main/animate.js';
 import { setItemPlayerScore } from './setLocalStorage.js'
 
 let playerName = '';
@@ -19,11 +19,14 @@ document.querySelector('#playerNameSubmit').addEventListener('click', function (
         setItemPlayerScore();
     
         document.querySelector('#playerNameDialog').style.display = 'none';
+        noPauseMenu.setBoolean(false);
+        restartGame();
     }
 });
 
 // show score menu
 export function showScoreMenu() {
+    noPauseMenu.setBoolean(true);
     document.getElementById('playerNameDialog').style.display = 'block';
     cancelAnimationFrame(animationId.getId());
 }
