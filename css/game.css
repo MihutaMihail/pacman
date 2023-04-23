@@ -11,7 +11,9 @@ body {
 }
 
 /**/
-/**/ /* Player Name Dialog */ /**/
+/**/
+/* Player Name Dialog */
+/**/
 /**/
 
 #playerNameDialog {
@@ -47,7 +49,9 @@ body {
 }
 
 /**/
-/**/ /* Score */ /**/
+/**/
+/* Score */
+/**/
 /**/
 
 #score {
@@ -55,26 +59,36 @@ body {
     color: white;
     font-family: "Press Start 2P";
     text-align: center;
+    display: inline-block;
 }
 
+
 /**/
-/**/ /* Pacman lives */ /**/
+/**/
+/* Pacman lives */
+/**/
 /**/
 
-#pacmanHealth-container {
+#wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+}
+
+#pacmanHealth-container {
+    margin-right: 10px;
 }
 
 #pacmanHealth-container img {
-    width: 50px;
-    height: 50px;
-    margin: 5px;
+    width: 35px;
+    height: 35px;
 }
 
 /**/
-/**/ /* Pause Menu */ /**/
+/**/
+/* Pause Menu */
+/**/
 /**/
 
 #pause-menu {
